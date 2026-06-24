@@ -1,0 +1,6 @@
+{
+  "name": "地摊烟火小店",
+  "description": "地摊小微商户线上小店微信小程序全套功能交互界面设计：包含顾客端实景扫街、限时预订、双向许愿池系统；以及摊主管理端AI语音助手、AI定价、极简大字模式、全渠道对账与一码营销。极其简单易上手的微信小程序规范交互。",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
