@@ -21,7 +21,7 @@ export default function My() {
     { icon: '🏪', label: '摊位设置', path: '/packageSeller/pages/stall-setting/index' },
     { icon: '📦', label: '商品管理', path: '/packageSeller/pages/product-manage/index' },
     { icon: '💰', label: 'AI 定价', path: '/packageSeller/pages/pricing/index' },
-    { icon: '🧾', label: '订单管理', path: '' },
+    { icon: '🧾', label: '订单管理', path: '/packageSeller/pages/order-manage/index' },
   ]
 
   const menus = isSeller ? sellerMenus : customerMenus

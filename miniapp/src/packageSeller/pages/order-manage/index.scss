@@ -1,0 +1,198 @@
+.order-manage-page {
+  min-height: 100vh;
+  height: 100vh;
+  background: #f6f7f9;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  // Tab 栏
+  .tab-bar {
+    display: flex;
+    background: #fff;
+    border-bottom: 1px solid #f2f3f5;
+    flex-shrink: 0;
+
+    .tab-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 88px;
+      position: relative;
+
+      .ti-label {
+        font-size: 28px;
+        color: #646566;
+      }
+      .ti-badge {
+        margin-left: 8px;
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        border-radius: 16px;
+        background: #ff5722;
+        color: #fff;
+        font-size: 20px;
+        line-height: 32px;
+        text-align: center;
+      }
+
+      &.active {
+        .ti-label { color: #ff5722; font-weight: 600; font-size: 30px; }
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 48px;
+          height: 6px;
+          border-radius: 3px;
+          background: #ff5722;
+        }
+      }
+    }
+  }
+
+  .order-scroll {
+    flex: 1;
+    height: 0;
+  }
+
+  .empty-wrap {
+    padding-top: 120px;
+  }
+
+  .order-list {
+    padding: 20px 24px;
+  }
+
+  .order-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+    .oc-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f2f3f5;
+
+      .oc-no { font-size: 26px; color: #969799; }
+      .oc-status { font-size: 26px; font-weight: 600; }
+    }
+
+    .oc-items {
+      padding: 16px 0;
+      border-bottom: 1px solid #f2f3f5;
+
+      .oci-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        .oci-name { font-size: 28px; color: #323233; }
+        .oci-sub { font-size: 26px; color: #646566; }
+      }
+    }
+
+    .oc-meta {
+      padding: 16px 0;
+
+      .ocm-row {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+        .ocm-label { font-size: 24px; color: #969799; width: 160px; flex-shrink: 0; }
+        .ocm-value { font-size: 24px; color: #323233; flex: 1; }
+        .ocm-code {
+          font-size: 28px;
+          font-weight: 700;
+          color: #ff5722;
+          letter-spacing: 2px;
+          font-family: 'Courier New', monospace;
+        }
+      }
+    }
+
+    .oc-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid #f2f3f5;
+
+      .oc-amount {
+        font-size: 24px;
+        color: #646566;
+        .oc-price { font-size: 34px; font-weight: 700; color: #ff5722; }
+      }
+
+      .oc-actions {
+        display: flex;
+        gap: 16px;
+
+        .btn {
+          min-width: 120px;
+          height: 64px;
+          line-height: 64px;
+          text-align: center;
+          border-radius: 32px;
+          font-size: 28px;
+        }
+        .btn-ghost {
+          background: #fff;
+          color: #646566;
+          border: 1px solid #dcdee0;
+        }
+        .btn-main {
+          background: linear-gradient(135deg, #ff7e3d 0%, #ff5722 100%);
+          color: #fff;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .page-bottom { height: 140px; }
+
+  // 凭码核销悬浮按钮
+  .scan-fab {
+    position: fixed;
+    right: 32px;
+    bottom: calc(48px + env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    background: linear-gradient(135deg, #ff7e3d 0%, #ff5722 100%);
+    box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
+    z-index: 10;
+
+    .fab-icon { font-size: 40px; }
+    .fab-text { font-size: 20px; color: #fff; margin-top: 4px; }
+  }
+
+  // 凭码弹窗
+  .code-dialog {
+    padding: 16px 0;
+
+    .cd-tip {
+      display: block;
+      font-size: 26px;
+      color: #969799;
+      margin-bottom: 20px;
+    }
+    .cd-input {
+      border: 1px solid #ebedf0;
+      border-radius: 12px;
+      padding: 12px 20px;
+    }
+  }
+}

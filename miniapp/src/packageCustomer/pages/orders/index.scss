@@ -1,0 +1,145 @@
+.orders-page {
+  min-height: 100vh;
+  height: 100vh;
+  background: #f6f7f9;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  // Tab 栏
+  .tab-bar {
+    display: flex;
+    background: #fff;
+    border-bottom: 1px solid #f2f3f5;
+    flex-shrink: 0;
+
+    .tab-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 88px;
+      position: relative;
+
+      .ti-label { font-size: 28px; color: #646566; }
+
+      &.active {
+        .ti-label { color: #ff5722; font-weight: 600; font-size: 30px; }
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 48px;
+          height: 6px;
+          border-radius: 3px;
+          background: #ff5722;
+        }
+      }
+    }
+  }
+
+  .orders-scroll {
+    flex: 1;
+    height: 0;
+  }
+
+  .empty-wrap { padding-top: 120px; }
+
+  .order-list { padding: 20px 24px; }
+
+  .order-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+    .oc-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f2f3f5;
+
+      .oc-no { font-size: 26px; color: #969799; }
+      .oc-status { font-size: 26px; font-weight: 600; }
+    }
+
+    // 取货码醒目展示
+    .oc-code-box {
+      margin: 16px 0;
+      padding: 24px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #fff4ec 0%, #ffe8d6 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .occ-label { font-size: 24px; color: #ff976a; margin-bottom: 8px; }
+      .occ-code {
+        font-size: 56px;
+        font-weight: 800;
+        letter-spacing: 6px;
+        color: #ff5722;
+        font-family: 'Courier New', monospace;
+      }
+    }
+
+    .oc-items {
+      padding: 16px 0;
+      border-bottom: 1px solid #f2f3f5;
+
+      .oci-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        .oci-name { font-size: 28px; color: #323233; }
+        .oci-sub { font-size: 26px; color: #646566; }
+      }
+    }
+
+    .oc-meta {
+      padding: 16px 0;
+
+      .ocm-row {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+        .ocm-label { font-size: 24px; color: #969799; width: 160px; flex-shrink: 0; }
+        .ocm-value { font-size: 24px; color: #323233; flex: 1; }
+      }
+    }
+
+    .oc-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid #f2f3f5;
+
+      .oc-amount {
+        font-size: 24px;
+        color: #646566;
+        .oc-price { font-size: 34px; font-weight: 700; color: #ff5722; }
+      }
+
+      .btn {
+        min-width: 140px;
+        height: 64px;
+        line-height: 64px;
+        text-align: center;
+        border-radius: 32px;
+        font-size: 28px;
+      }
+      .btn-ghost {
+        background: #fff;
+        color: #646566;
+        border: 1px solid #dcdee0;
+      }
+    }
+  }
+
+  .page-bottom { height: 40px; }
+}
