@@ -1,0 +1,81 @@
+.stall-setting-page {
+  min-height: 100vh;
+  background: #f6f7f9;
+  padding-bottom: 160px;
+
+  .form-header {
+    padding: 40px 32px 24px;
+    background: linear-gradient(135deg, #ff7a45 0%, #ff4d4f 100%);
+    color: #fff;
+
+    .form-title {
+      display: block;
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .form-sub {
+      display: block;
+      font-size: 24px;
+      opacity: 0.9;
+    }
+  }
+
+  .form-card {
+    margin: 24px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 8px 0;
+    overflow: hidden;
+
+    .cell-input {
+      text-align: right;
+      font-size: 28px;
+    }
+
+    .cell-value {
+      font-size: 28px;
+      color: #333;
+    }
+
+    .area-label {
+      padding: 20px 32px 12px;
+      font-size: 26px;
+      color: #999;
+    }
+
+    .nut-textarea {
+      padding: 0 32px 20px;
+    }
+  }
+
+  .seg {
+    display: flex;
+    gap: 12px;
+
+    .seg-item {
+      padding: 8px 28px;
+      font-size: 26px;
+      border-radius: 999px;
+      background: #f0f0f0;
+      color: #666;
+
+      &.active {
+        background: #fff0eb;
+        color: #ff4d4f;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .submit-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px 32px calc(20px + env(safe-area-inset-bottom));
+    background: #fff;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+  }
+}
