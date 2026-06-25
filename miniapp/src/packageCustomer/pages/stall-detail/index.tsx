@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { View, Text, Image, ScrollView } from '@tarojs/components'
 import Taro, { useRouter, useDidShow } from '@tarojs/taro'
-import { Tag, Empty } from '@nutui/nutui-react-taro'
+import { Tag, Empty, Button } from '@nutui/nutui-react-taro'
 import { useStallStore } from '@/stores/stallStore'
 import { useProductStore } from '@/stores/productStore'
+import { useCouponStore } from '@/stores/couponStore'
 import { getTempFileURLs } from '@/utils/upload'
-import type { StallStatus } from '@/types'
+import type { StallStatus, Coupon } from '@/types'
 import './index.scss'
 
 /** 出摊状态 → 颜色 / 文案 */
@@ -29,6 +30,7 @@ export default function StallDetail() {
 
   const { currentStall, fetchDetail } = useStallStore()
   const { products, fetchByStall } = useProductStore()
+  const { stallCoupons, fetchStallCoupons, claimCoupon } = useCouponStore()
 
   // 实景图：原图 / AI 优化对比切换
   const [showOptimized, setShowOptimized] = useState(false)
@@ -38,6 +40,7 @@ export default function StallDetail() {
     if (stallId) {
       fetchDetail(stallId)
       fetchByStall(stallId)
+      fetchStallCoupons(stallId)
     }
   })
 
@@ -81,6 +84,22 @@ export default function StallDetail() {
 
   const goReserve = () => {
     Taro.navigateTo({ url: `/packageCustomer/pages/reserve/index?stallId=${stallId}` })
+  }
+
+  const goWish = () => {
+    Taro.navigateTo({ url: `/packageCustomer/pages/wish-pool/index?stallId=${stallId}` })
+  }
+
+  const handleClaim = async (c: Coupon) => {
+    if (c.claimed) return
+    const ok = await claimCoupon(c.id)
+    if (ok) Taro.showToast({ title: '领取成功', icon: 'success' })
+  }
+
+  const couponDiscountText = (c: Coupon) => {
+    if (c.type === 'discount') return `${c.discount}折`
+    if (c.type === 'gift') return '赠品'
+    return `¥${c.discount}`
   }
 
   const callPhone = () => {
@@ -166,13 +185,33 @@ export default function StallDetail() {
         </View>
       )}
 
-      {/* 优惠券区（占位 Day8-10） */}
-      <View className='section coupon-section'>
-        <Text className='section-title'>🎫 优惠券</Text>
-        <View className='placeholder-box'>
-          <Text className='pb-text'>暂无优惠券（Day8-10 上线）</Text>
+      {/* 优惠券区（Day10） */}
+      {stallCoupons.length > 0 && (
+        <View className='section coupon-section'>
+          <Text className='section-title'>🎫 领券享优惠</Text>
+          <ScrollView scrollX className='coupon-strip'>
+            {stallCoupons.map((c) => (
+              <View key={c.id} className='coupon-mini'>
+                <View className='cm-left'>
+                  <Text className='cm-amount'>{couponDiscountText(c)}</Text>
+                  <Text className='cm-min'>满{c.minSpend}用</Text>
+                </View>
+                <View className='cm-right'>
+                  <Text className='cm-title'>{c.title}</Text>
+                  <Button
+                    size='small'
+                    type='primary'
+                    disabled={!!c.claimed}
+                    onClick={() => handleClaim(c)}
+                  >
+                    {c.claimed ? '已领' : '领取'}
+                  </Button>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
         </View>
-      </View>
+      )}
 
       {/* 商品列表 */}
       <View className='section'>
@@ -223,11 +262,14 @@ export default function StallDetail() {
         )}
       </View>
 
-      {/* 许愿区（占位 Day8-10） */}
-      <View className='section wish-section'>
-        <Text className='section-title'>💌 许愿池</Text>
-        <View className='placeholder-box'>
-          <Text className='pb-text'>想要的没看到？许愿功能开发中（Day8-10）</Text>
+      {/* 许愿区（Day10） */}
+      <View className='section wish-section' onClick={goWish}>
+        <View className='section-head'>
+          <Text className='section-title'>💌 许愿池</Text>
+          <Text className='section-count'>去看看 ›</Text>
+        </View>
+        <View className='wish-entry-box'>
+          <Text className='web-text'>想吃的没看到？许个愿，让摊主听见你的心声 ✨</Text>
         </View>
       </View>
 

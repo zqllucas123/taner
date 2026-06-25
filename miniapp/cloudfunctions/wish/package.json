@@ -1,0 +1,9 @@
+{
+  "name": "wish",
+  "version": "1.0.0",
+  "description": "许愿池：许愿/列表/回愿/点赞，含 msgSecCheck 内容安全",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

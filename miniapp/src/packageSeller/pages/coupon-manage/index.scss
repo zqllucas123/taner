@@ -1,0 +1,113 @@
+.coupon-manage {
+  min-height: 100vh;
+  background: #f6f7f9;
+
+  .cm-scroll {
+    height: 100vh;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  .cm-bottom { height: 140px; }
+
+  .coupon-list { display: flex; flex-direction: column; gap: 20px; }
+
+  .coupon-card {
+    display: flex;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+
+    &.is-paused { opacity: 0.55; }
+
+    .cc-left {
+      width: 200px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #ff7a45, #ff4d4f);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 12px;
+
+      .cc-discount { font-size: 40px; font-weight: 700; }
+      .cc-min { font-size: 22px; opacity: 0.9; margin-top: 8px; }
+    }
+
+    .cc-body {
+      flex: 1;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .cc-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+
+        .cc-title { font-size: 30px; font-weight: 600; color: #1f2329; }
+      }
+
+      .cc-type { font-size: 24px; color: #86909c; }
+
+      .cc-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 24px;
+        color: #86909c;
+        margin-top: 4px;
+
+        .cc-claimed { color: #4e5969; }
+      }
+
+      .cc-actions {
+        margin-top: 8px;
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  .cm-fab {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px 24px calc(20px + env(safe-area-inset-bottom));
+    background: #fff;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+  }
+}
+
+.form-sheet {
+  padding: 32px 24px calc(24px + env(safe-area-inset-bottom));
+
+  .fs-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2329;
+    display: block;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .fs-cell {
+    margin-bottom: 24px;
+
+    &.column { display: flex; flex-direction: column; gap: 12px; }
+
+    .fsc-label { font-size: 26px; color: #4e5969; }
+  }
+
+  .fs-actions {
+    display: flex;
+    gap: 20px;
+    margin-top: 12px;
+
+    .nut-button { flex: 1; }
+  }
+}

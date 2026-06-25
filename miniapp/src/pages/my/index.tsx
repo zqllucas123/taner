@@ -11,7 +11,7 @@ export default function My() {
   // 顾客端菜单
   const customerMenus = [
     { icon: '📋', label: '我的预定', path: '/packageCustomer/pages/orders/index' },
-    { icon: '🎫', label: '我的优惠券', path: '' },
+    { icon: '🎫', label: '我的优惠券', path: '/packageCustomer/pages/my-coupons/index' },
     { icon: '💌', label: '我的许愿', path: '' },
     { icon: '⚙️', label: '设置', path: '' },
   ]
@@ -22,6 +22,7 @@ export default function My() {
     { icon: '📦', label: '商品管理', path: '/packageSeller/pages/product-manage/index' },
     { icon: '💰', label: 'AI 定价', path: '/packageSeller/pages/pricing/index' },
     { icon: '🧾', label: '订单管理', path: '/packageSeller/pages/order-manage/index' },
+    { icon: '🎫', label: '优惠券管理', path: '/packageSeller/pages/coupon-manage/index' },
   ]
 
   const menus = isSeller ? sellerMenus : customerMenus

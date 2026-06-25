@@ -1,12 +1,13 @@
 import { useState, useEffect, useMemo } from 'react'
 import { View, Text, Image, ScrollView } from '@tarojs/components'
 import Taro, { useRouter, useDidShow } from '@tarojs/taro'
-import { Input, TextArea, InputNumber, Button, Empty } from '@nutui/nutui-react-taro'
+import { Input, TextArea, InputNumber, Button, Empty, Popup } from '@nutui/nutui-react-taro'
 import { useProductStore } from '@/stores/productStore'
 import { useStallStore } from '@/stores/stallStore'
 import { useOrderStore } from '@/stores/orderStore'
+import { useCouponStore } from '@/stores/couponStore'
 import { getTempFileURLs } from '@/utils/upload'
-import type { Order } from '@/types'
+import type { Order, UserCoupon } from '@/types'
 import './index.scss'
 
 export default function Reserve() {
@@ -18,6 +19,7 @@ export default function Reserve() {
   const { products, fetchByStall } = useProductStore()
   const { currentStall, fetchDetail } = useStallStore()
   const { createReservation } = useOrderStore()
+  const { ownedCoupons, fetchOwnedCoupons } = useCouponStore()
 
   // 各商品选购数量 { productId: qty }
   const [qtyMap, setQtyMap] = useState<Record<string, number>>({})
@@ -27,12 +29,16 @@ export default function Reserve() {
   const [submitting, setSubmitting] = useState(false)
   // 提交成功后的取货码票据
   const [ticket, setTicket] = useState<Order | null>(null)
+  // 优惠券
+  const [couponId, setCouponId] = useState('')
+  const [showCouponPicker, setShowCouponPicker] = useState(false)
 
   useDidShow(() => {
     if (stallId) {
       fetchByStall(stallId)
       fetchDetail(stallId)
     }
+    fetchOwnedCoupons('unused')
   })
 
   // 预选商品默认数量 1
@@ -77,6 +83,44 @@ export default function Reserve() {
     }
   }, [onSaleProducts, qtyMap])
 
+  // 适用于本摊位的可用券
+  const applicableCoupons = useMemo(
+    () => ownedCoupons.filter((uc) => uc.stallId === stallId && uc.status === 'unused' && uc.coupon),
+    [ownedCoupons, stallId],
+  )
+
+  const calcDiscount = (uc?: UserCoupon | null) => {
+    if (!uc || !uc.coupon) return 0
+    const c = uc.coupon
+    if (totalAmount < (c.minSpend || 0)) return 0
+    let d = 0
+    if (c.type === 'discount') {
+      const rate = Math.min(Math.max(c.discount, 0), 10) / 10
+      d = totalAmount * (1 - rate)
+    } else {
+      d = Math.min(c.discount || 0, totalAmount)
+    }
+    return Math.round(d * 100) / 100
+  }
+
+  const selectedCoupon = useMemo(
+    () => applicableCoupons.find((uc) => uc.id === couponId) || null,
+    [applicableCoupons, couponId],
+  )
+
+  const discountAmount = useMemo(() => calcDiscount(selectedCoupon), [selectedCoupon, totalAmount])
+  const payAmount = useMemo(
+    () => Math.max(0, Math.round((totalAmount - discountAmount) * 100) / 100),
+    [totalAmount, discountAmount],
+  )
+
+  const couponLabel = (uc: UserCoupon) => {
+    const c = uc.coupon!
+    if (c.type === 'discount') return `${c.discount}折`
+    if (c.type === 'gift') return '赠品券'
+    return `减¥${c.discount}`
+  }
+
   const setQty = (productId: string, val: number, max: number) => {
     const v = Math.max(0, Math.min(val || 0, max))
     setQtyMap((prev) => ({ ...prev, [productId]: v }))
@@ -94,6 +138,7 @@ export default function Reserve() {
         items: selectedItems.map((it) => ({ productId: it.product.id, quantity: it.qty })),
         pickupTime: pickupTime.trim(),
         reserveNotes: reserveNotes.trim(),
+        couponId: couponId || undefined,
       })
       if (order) {
         setTicket(order)
@@ -256,14 +301,40 @@ export default function Reserve() {
           </View>
         </View>
 
+        {/* 优惠券 */}
+        <View className='section'>
+          <View className='coupon-entry' onClick={() => applicableCoupons.length && setShowCouponPicker(true)}>
+            <Text className='ce-label'>🎟️ 优惠券</Text>
+            {selectedCoupon ? (
+              <Text className='ce-value active'>
+                {couponLabel(selectedCoupon)}（-¥{discountAmount}）
+              </Text>
+            ) : (
+              <Text className='ce-value'>
+                {applicableCoupons.length ? `${applicableCoupons.length} 张可用` : '暂无可用券'}
+              </Text>
+            )}
+            {applicableCoupons.length > 0 && <Text className='ce-arrow'>›</Text>}
+          </View>
+        </View>
+
         <View className='page-bottom' />
       </ScrollView>
 
       {/* 底部结算栏 */}
       <View className='checkout-bar'>
         <View className='cb-summary'>
-          <Text className='cb-total'>合计 <Text className='cb-price'>¥{totalAmount}</Text></Text>
-          <Text className='cb-count'>已选 {totalCount} 件</Text>
+          {discountAmount > 0 ? (
+            <Text className='cb-total'>
+              应付 <Text className='cb-price'>¥{payAmount}</Text>
+              <Text className='cb-strike'>¥{totalAmount}</Text>
+            </Text>
+          ) : (
+            <Text className='cb-total'>合计 <Text className='cb-price'>¥{totalAmount}</Text></Text>
+          )}
+          <Text className='cb-count'>
+            已选 {totalCount} 件{discountAmount > 0 ? ` · 已省 ¥${discountAmount}` : ''}
+          </Text>
         </View>
         <Button
           className='cb-submit'
@@ -275,6 +346,56 @@ export default function Reserve() {
           提交预定
         </Button>
       </View>
+
+      {/* 优惠券选择 */}
+      <Popup
+        visible={showCouponPicker}
+        position='bottom'
+        onClose={() => setShowCouponPicker(false)}
+        round
+      >
+        <View className='coupon-picker'>
+          <Text className='cp-title'>选择优惠券</Text>
+          <ScrollView scrollY className='cp-scroll'>
+            <View
+              className={`cp-item none ${!couponId ? 'selected' : ''}`}
+              onClick={() => {
+                setCouponId('')
+                setShowCouponPicker(false)
+              }}
+            >
+              <Text className='cp-none-text'>不使用优惠券</Text>
+              {!couponId && <Text className='cp-check'>✓</Text>}
+            </View>
+            {applicableCoupons.map((uc) => {
+              const d = calcDiscount(uc)
+              const usable = d > 0
+              return (
+                <View
+                  key={uc.id}
+                  className={`cp-item ${couponId === uc.id ? 'selected' : ''} ${usable ? '' : 'disabled'}`}
+                  onClick={() => {
+                    if (!usable) return
+                    setCouponId(uc.id)
+                    setShowCouponPicker(false)
+                  }}
+                >
+                  <View className='cp-left'>
+                    <Text className='cp-amount'>{couponLabel(uc)}</Text>
+                    <Text className='cp-min'>满 ¥{uc.coupon?.minSpend || 0} 用</Text>
+                  </View>
+                  <View className='cp-info'>
+                    <Text className='cp-name'>{uc.coupon?.title}</Text>
+                    {!!uc.coupon?.expiry && <Text className='cp-expiry'>至 {uc.coupon.expiry}</Text>}
+                    {!usable && <Text className='cp-unusable'>不满足使用门槛</Text>}
+                  </View>
+                  {couponId === uc.id && <Text className='cp-check'>✓</Text>}
+                </View>
+              )
+            })}
+          </ScrollView>
+        </View>
+      </Popup>
     </View>
   )
 }

@@ -307,3 +307,55 @@
     }
   }
 }
+
+/* ===== 领券/许愿入口（Day10） ===== */
+.stall-detail-page {
+  .coupon-strip {
+    white-space: nowrap;
+
+    .coupon-mini {
+      display: inline-flex;
+      align-items: center;
+      width: 380px;
+      background: linear-gradient(135deg, #fff3ec, #ffece8);
+      border: 2px solid #ffd8c2;
+      border-radius: 16px;
+      padding: 16px;
+      margin-right: 16px;
+
+      .cm-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-right: 16px;
+        margin-right: 16px;
+        border-right: 2px dashed #ffd8c2;
+
+        .cm-amount { font-size: 36px; font-weight: 700; color: #ff4d4f; }
+        .cm-min { font-size: 20px; color: #ff7a45; margin-top: 4px; }
+      }
+
+      .cm-right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .cm-title {
+          font-size: 26px;
+          color: #1f2329;
+          font-weight: 600;
+          white-space: normal;
+        }
+      }
+    }
+  }
+
+  .wish-section .wish-entry-box {
+    background: linear-gradient(135deg, #f9f0ff, #efe6ff);
+    border-radius: 16px;
+    padding: 28px 24px;
+
+    .web-text { font-size: 26px; color: #722ed1; line-height: 1.5; }
+  }
+}

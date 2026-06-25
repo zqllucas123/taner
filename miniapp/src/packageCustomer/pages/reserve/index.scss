@@ -255,3 +255,94 @@
     }
   }
 }
+
+/* ===== 优惠券（Day10） ===== */
+.reserve-page {
+  .coupon-entry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+
+    .ce-label { font-size: 28px; color: #1f2329; }
+    .ce-value {
+      flex: 1;
+      text-align: right;
+      font-size: 26px;
+      color: #86909c;
+      margin-right: 8px;
+
+      &.active { color: #ff4d4f; font-weight: 600; }
+    }
+    .ce-arrow { font-size: 32px; color: #c9cdd4; }
+  }
+
+  .checkout-bar .cb-strike {
+    font-size: 22px;
+    color: #c9cdd4;
+    text-decoration: line-through;
+    margin-left: 10px;
+  }
+}
+
+.coupon-picker {
+  padding: 32px 24px calc(24px + env(safe-area-inset-bottom));
+  max-height: 70vh;
+
+  .cp-title {
+    display: block;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2329;
+    margin-bottom: 24px;
+  }
+
+  .cp-scroll { max-height: 56vh; }
+
+  .cp-item {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 2px solid #f0f1f3;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 18px;
+
+    &.selected { border-color: #ff4d4f; }
+    &.disabled { opacity: 0.45; }
+
+    &.none {
+      justify-content: center;
+      .cp-none-text { font-size: 28px; color: #4e5969; }
+    }
+
+    .cp-left {
+      width: 160px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-right: 2px dashed #f0f1f3;
+      padding-right: 16px;
+      margin-right: 20px;
+
+      .cp-amount { font-size: 36px; font-weight: 700; color: #ff4d4f; }
+      .cp-min { font-size: 20px; color: #86909c; margin-top: 4px; }
+    }
+
+    .cp-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+
+      .cp-name { font-size: 28px; font-weight: 600; color: #1f2329; }
+      .cp-expiry { font-size: 22px; color: #86909c; }
+      .cp-unusable { font-size: 22px; color: #f53f3f; }
+    }
+
+    .cp-check { font-size: 36px; color: #ff4d4f; font-weight: 700; margin-left: 12px; }
+  }
+}

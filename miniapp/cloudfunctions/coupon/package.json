@@ -1,0 +1,9 @@
+{
+  "name": "coupon",
+  "version": "1.0.0",
+  "description": "优惠券：发券/领券/列表，含 msgSecCheck 内容安全",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

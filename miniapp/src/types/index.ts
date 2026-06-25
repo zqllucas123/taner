@@ -149,6 +149,8 @@ export interface Order {
 // ============ 营销域 ============
 
 export type CouponType = 'discount' | 'cash' | 'gift'
+export type CouponScene = 'manual' | 'auto_pay' | 'share' | 'new_customer'
+export type CouponStatus = 'active' | 'paused' | 'expired'
 
 export interface Coupon {
   _id?: string
@@ -159,9 +161,30 @@ export interface Coupon {
   discount: number
   minSpend: number
   expiry: string
-  total?: number
-  claimed?: number
+  totalCount?: number // -1 不限量
+  claimedCount?: number
+  scene?: CouponScene
+  status?: CouponStatus
+  /** 应用层：当前用户是否已领 */
+  claimed?: boolean
   createdAt?: number
+}
+
+export type UserCouponStatus = 'unused' | 'used' | 'expired'
+
+/** 用户领券记录（含冗余的券信息，便于「我的优惠券」直接展示） */
+export interface UserCoupon {
+  _id?: string
+  id: string
+  userId: string
+  couponId: string
+  stallId: string
+  status: UserCouponStatus
+  orderId?: string
+  claimedAt?: number
+  usedAt?: number
+  /** 关联券快照（list 时 join 返回） */
+  coupon?: Coupon
 }
 
 // ============ 互动域 ============
@@ -180,6 +203,10 @@ export interface Wish {
   status: WishStatus
   vendorReply?: string
   vendorReplyDate?: number
+  expectPrice?: number // 摊主标注预定价
+  expectArrive?: string // 可到货时间
+  /** 应用层：当前用户是否已点赞 */
+  liked?: boolean
   createdAt?: number
 }
 

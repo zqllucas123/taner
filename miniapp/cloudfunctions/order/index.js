@@ -10,6 +10,8 @@ const productsCol = db.collection('products')
 const stallsCol = db.collection('stalls')
 const usersCol = db.collection('users')
 const invLogsCol = db.collection('inventory_logs')
+const couponsCol = db.collection('coupons')
+const userCouponsCol = db.collection('user_coupons')
 
 /**
  * 订单云函数（按 action 路由）
@@ -149,6 +151,37 @@ async function reserve(openid, event) {
   }
   totalAmount = round2(totalAmount)
 
+  // 优惠券核销校验（在扣库存前算好抵扣金额）
+  let discountAmount = 0
+  let userCouponDoc = null
+  let couponDoc = null
+  if (couponId) {
+    const { data: uc } = await userCouponsCol.doc(couponId).get().catch(() => ({ data: null }))
+    if (!uc) return { code: 1, message: '优惠券不存在', data: null }
+    if (uc.userId !== user._id) return { code: 1, message: '无权使用该券', data: null }
+    if (uc.status !== 'unused') return { code: 1, message: '该券已使用或已过期', data: null }
+    if (uc.stallId !== stallId) return { code: 1, message: '该券不适用于本摊位', data: null }
+
+    const { data: cp } = await couponsCol.doc(uc.couponId).get().catch(() => ({ data: null }))
+    if (!cp) return { code: 1, message: '优惠券信息异常', data: null }
+    if (cp.expiry && new Date(cp.expiry).getTime() < Date.now()) {
+      return { code: 1, message: '优惠券已过期', data: null }
+    }
+    if (totalAmount < (cp.minSpend || 0)) {
+      return { code: 1, message: `满 ${cp.minSpend} 元可用该券`, data: null }
+    }
+
+    // 折扣计算：cash/gift 直减 discount；discount 为折扣率（如 8.5 折→discount=8.5）
+    if (cp.type === 'discount') {
+      const rate = Math.min(Math.max(cp.discount, 0), 10) / 10 // 折数 → 比例
+      discountAmount = round2(totalAmount * (1 - rate))
+    } else {
+      discountAmount = round2(Math.min(cp.discount || 0, totalAmount))
+    }
+    userCouponDoc = uc
+    couponDoc = cp
+  }
+
   // 原子预扣库存（逐件），失败则回滚已扣的
   const deducted = []
   for (const oi of orderItems) {
@@ -163,7 +196,6 @@ async function reserve(openid, event) {
 
   // 创建订单主表
   const now = Date.now()
-  const discountAmount = 0 // 优惠券 Day10 接入
   const orderDoc = {
     orderNo: genOrderNo(),
     userId: user._id,
@@ -209,6 +241,21 @@ async function reserve(openid, event) {
         createdAt: now,
       },
     })
+  }
+
+  // 优惠券核销：原子标记 user_coupon 为 used（仅当仍 unused，防并发重复抵扣）
+  if (userCouponDoc) {
+    const ucRes = await userCouponsCol
+      .where({ _id: userCouponDoc._id, status: 'unused' })
+      .update({ data: { status: 'used', orderId, usedAt: now } })
+    if (!ucRes.stats || ucRes.stats.updated === 0) {
+      // 并发下券已被占用：回滚库存 + 删除订单 + 明细
+      for (const d of deducted) await rollbackStock(d.productId, d.quantity)
+      await ordersCol.doc(orderId).remove().catch(() => {})
+      const { data: createdItems } = await orderItemsCol.where({ orderId }).get()
+      for (const ci of createdItems || []) await orderItemsCol.doc(ci._id).remove().catch(() => {})
+      return { code: 1, message: '优惠券已被使用，请重新下单', data: null }
+    }
   }
 
   const fullOrder = normalizeOrder({ ...orderDoc, _id: orderId })
@@ -318,6 +365,14 @@ async function cancelOrder(openid, id) {
         createdAt: now,
       },
     })
+  }
+
+  // 退还已使用的优惠券（恢复为 unused）
+  if (order.couponId) {
+    await userCouponsCol
+      .where({ _id: order.couponId, status: 'used', orderId: id })
+      .update({ data: { status: 'unused', orderId: null, usedAt: null } })
+      .catch(() => {})
   }
 
   await ordersCol.doc(id).update({ data: { status: 'cancelled', updatedAt: now } })
