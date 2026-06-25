@@ -75,8 +75,12 @@ export default function StallDetail() {
   const hasOpt = !!s.vibeImageOpt
   const heroImg = resolveImg(showOptimized && hasOpt ? s.vibeImageOpt : s.vibeImage)
 
-  const handleReserve = (productName: string) => {
-    Taro.showToast({ title: `「${productName}」预定功能开发中（Day8）`, icon: 'none' })
+  const handleReserve = (productId: string) => {
+    Taro.navigateTo({ url: `/packageCustomer/pages/reserve/index?stallId=${stallId}&productId=${productId}` })
+  }
+
+  const goReserve = () => {
+    Taro.navigateTo({ url: `/packageCustomer/pages/reserve/index?stallId=${stallId}` })
   }
 
   const callPhone = () => {
@@ -207,7 +211,7 @@ export default function StallDetail() {
                           <Text className='price-origin'>¥{p.originalPrice}</Text>
                         )}
                       </View>
-                      <View className='reserve-btn' onClick={() => handleReserve(p.name)}>
+                      <View className='reserve-btn' onClick={() => handleReserve(p.id)}>
                         预定
                       </View>
                     </View>
@@ -235,7 +239,7 @@ export default function StallDetail() {
           <Text className='abp-icon'>📞</Text>
           <Text className='abp-label'>联系</Text>
         </View>
-        <View className='ab-main' onClick={() => Taro.showToast({ title: '预定功能开发中（Day8）', icon: 'none' })}>
+        <View className='ab-main' onClick={goReserve}>
           立即预定
         </View>
       </View>

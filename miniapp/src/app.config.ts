@@ -12,6 +12,7 @@ export default defineAppConfig({
       pages: [
         'pages/home/index', // 地摊地图首页（Day6）
         'pages/stall-detail/index', // 摊位详情（Day7）
+        'pages/reserve/index', // 预定下单（Day8）
         // 'pages/orders/index',         // 我的订单（Day8）
       ],
     },
