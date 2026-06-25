@@ -21,8 +21,8 @@ export default defineAppConfig({
       pages: [
         'pages/stall-setting/index', // 摊位设置/开店（Day3）
         'pages/product-manage/index', // 商品管理（Day4）
+        'pages/pricing/index', // AI 定价助手（Day5）
         // 'pages/dashboard/index',      // 经营仪表盘（Day3+）
-        // 'pages/pricing/index',        // AI 定价（Day5）
         // 'pages/order-manage/index',   // 订单管理（Day9）
       ],
     },
