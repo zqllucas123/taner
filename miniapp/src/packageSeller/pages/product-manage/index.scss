@@ -1,0 +1,190 @@
+.product-manage-page {
+  min-height: 100vh;
+  background: #f6f7f9;
+
+  .list-scroll {
+    height: 100vh;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  .list-bottom { height: 140px; }
+
+  .product-card {
+    display: flex;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+
+    &.is-off { opacity: 0.6; }
+
+    .card-img {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+
+      .img { width: 100%; height: 100%; }
+      .img-ph { font-size: 64px; }
+
+      .clearing-badge {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #ee0a24;
+        color: #fff;
+        font-size: 20px;
+        padding: 4px 12px;
+        border-bottom-right-radius: 12px;
+      }
+    }
+
+    .card-body {
+      flex: 1;
+      margin-left: 20px;
+      display: flex;
+      flex-direction: column;
+
+      .card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .name {
+          font-size: 30px;
+          font-weight: 600;
+          color: #1a1a1a;
+        }
+      }
+
+      .price-row {
+        display: flex;
+        align-items: baseline;
+        margin-top: 8px;
+        gap: 12px;
+
+        .price { font-size: 32px; color: #ee0a24; font-weight: 700; }
+        .origin { font-size: 24px; color: #bbb; text-decoration: line-through; }
+        .stock { font-size: 24px; color: #999; margin-left: auto; }
+      }
+
+      .cate {
+        margin-top: 8px;
+        font-size: 22px;
+        color: #888;
+      }
+
+      .card-actions {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 16px;
+
+        .switch-wrap {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          .switch-label { font-size: 24px; color: #666; }
+        }
+
+        .btns {
+          display: flex;
+          gap: 28px;
+          .link { font-size: 26px; color: #1989fa; }
+          .link.danger { color: #ee0a24; }
+        }
+      }
+    }
+  }
+
+  .fab {
+    position: fixed;
+    right: 40px;
+    bottom: 60px;
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff7a45, #ff4d4f);
+    box-shadow: 0 8px 24px rgba(255, 77, 79, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .fab-icon { color: #fff; font-size: 60px; line-height: 1; }
+  }
+
+  /* 表单弹窗 */
+  .form-popup {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .form-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 32px;
+      border-bottom: 1px solid #f0f0f0;
+
+      .form-title { font-size: 32px; font-weight: 600; }
+      .form-cancel { font-size: 28px; color: #969799; }
+      .form-save { font-size: 28px; color: #ff4d4f; font-weight: 600; }
+    }
+
+    .form-scroll {
+      flex: 1;
+      padding: 24px 32px;
+      box-sizing: border-box;
+    }
+
+    .img-uploader {
+      width: 200px;
+      height: 200px;
+      border-radius: 16px;
+      background: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 32px;
+      overflow: hidden;
+
+      .preview { width: 100%; height: 100%; }
+      .uploader-ph {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .ph-plus { font-size: 56px; color: #c8c9cc; }
+        .ph-text { font-size: 24px; color: #969799; margin-top: 8px; }
+      }
+    }
+
+    .field {
+      margin-bottom: 28px;
+
+      .label {
+        display: block;
+        font-size: 26px;
+        color: #646566;
+        margin-bottom: 12px;
+      }
+
+      &.row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .label { margin-bottom: 0; }
+      }
+    }
+
+    .form-bottom { height: 60px; }
+  }
+}

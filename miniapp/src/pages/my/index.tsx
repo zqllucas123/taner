@@ -19,7 +19,7 @@ export default function My() {
   // 摊主端菜单
   const sellerMenus = [
     { icon: '🏪', label: '摊位设置', path: '/packageSeller/pages/stall-setting/index' },
-    { icon: '📦', label: '商品管理', path: '' },
+    { icon: '📦', label: '商品管理', path: '/packageSeller/pages/product-manage/index' },
     { icon: '💰', label: 'AI 定价', path: '' },
     { icon: '🧾', label: '订单管理', path: '' },
   ]
