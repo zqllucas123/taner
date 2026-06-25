@@ -1,0 +1,21 @@
+{
+  "miniprogramRoot": "./dist",
+  "cloudfunctionRoot": "./cloudfunctions/",
+  "projectname": "taner-miniapp",
+  "description": "地摊小微商户线上小店小程序",
+  "appid": "wx8a02718e692f5430",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "enhance": false,
+    "compileHotReLoad": false,
+    "postcss": false,
+    "minified": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
+  },
+  "compileType": "miniprogram"
+}
