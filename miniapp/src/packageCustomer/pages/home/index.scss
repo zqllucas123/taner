@@ -1,19 +1,248 @@
 .customer-home-page {
-  min-height: 100vh;
-  background: #f5f6f8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #eef0f2;
 
-  .placeholder {
+  // 顶部品类筛选
+  .filter-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    padding: 20px 0 16px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 60%, rgba(255, 255, 255, 0));
+
+    .filter-scroll {
+      white-space: nowrap;
+      padding: 0 20px;
+
+      .filter-chip {
+        display: inline-block;
+        padding: 12px 28px;
+        margin-right: 16px;
+        font-size: 26px;
+        color: #555;
+        background: #fff;
+        border-radius: 32px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+        &.active {
+          color: #fff;
+          background: linear-gradient(135deg, #ff7e5f 0%, #ff6a3d 100%);
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  // 地图铺底
+  .map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 62vh;
+  }
+
+  // 重新定位
+  .locate-btn {
+    position: absolute;
+    right: 28px;
+    top: 52vh;
+    z-index: 15;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+  }
+
+  // 底部摊位卡片 sheet
+  .stall-sheet {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100px; // 给底部导航留位
+    height: 42vh;
+    background: #fff;
+    border-radius: 28px 28px 0 0;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    padding: 64px;
+    z-index: 10;
 
-    .ph-emoji { font-size: 96px; }
-    .ph-title { font-size: 36px; font-weight: 700; color: #333; }
-    .ph-desc { font-size: 26px; color: #969799; text-align: center; }
+    .sheet-handle {
+      width: 72px;
+      height: 8px;
+      border-radius: 4px;
+      background: #e5e6e8;
+      margin: 16px auto 8px;
+    }
+
+    .sheet-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 8px 28px 16px;
+
+      .st-text { font-size: 30px; font-weight: 700; color: #222; }
+      .st-count { font-size: 24px; color: #999; }
+    }
+
+    .sheet-list {
+      flex: 1;
+      padding: 0 20px;
+
+      .list-bottom { height: 24px; }
+
+      .empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 80px 0;
+
+        .empty-emoji { font-size: 72px; margin-bottom: 16px; }
+        .empty-text { font-size: 26px; color: #999; }
+      }
+
+      .stall-card {
+        display: flex;
+        align-items: center;
+        background: #fafbfc;
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 16px;
+        border: 2px solid transparent;
+        transition: all 0.2s;
+
+        &.active {
+          border-color: #ff6a3d;
+          background: #fff7f3;
+        }
+
+        .sc-emoji {
+          width: 88px;
+          height: 88px;
+          border-radius: 16px;
+          background: #fff;
+          border: 3px solid #07c160;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 48px;
+          flex-shrink: 0;
+        }
+
+        .sc-body {
+          flex: 1;
+          margin-left: 20px;
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+
+          .sc-top {
+            display: flex;
+            align-items: center;
+
+            .sc-name {
+              font-size: 30px;
+              font-weight: 600;
+              color: #222;
+              max-width: 320px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+            .sc-hot {
+              font-size: 22px;
+              color: #ee0a24;
+              margin-left: 12px;
+              flex-shrink: 0;
+            }
+          }
+
+          .sc-meta {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+
+            .sc-status { font-size: 24px; font-weight: 500; }
+            .sc-cat {
+              font-size: 22px;
+              color: #969799;
+              margin-left: 16px;
+              padding-left: 16px;
+              border-left: 1px solid #ebedf0;
+            }
+          }
+
+          .sc-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .sc-loc {
+              font-size: 22px;
+              color: #969799;
+              max-width: 360px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+            .sc-dist {
+              font-size: 22px;
+              color: #ff6a3d;
+              font-weight: 600;
+              flex-shrink: 0;
+              margin-left: 12px;
+            }
+          }
+        }
+
+        .sc-rating {
+          margin-left: 12px;
+          flex-shrink: 0;
+          .sc-star { font-size: 22px; color: #ff976a; }
+        }
+      }
+    }
+  }
+
+  // 自定义底部导航
+  .tab-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100px;
+    background: #fff;
+    border-top: 1px solid #f0f1f3;
+    display: flex;
+    align-items: center;
+    z-index: 30;
+    padding-bottom: env(safe-area-inset-bottom);
+
+    .tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .tab-icon { font-size: 40px; filter: grayscale(1); opacity: 0.5; }
+      .tab-label { font-size: 22px; color: #999; margin-top: 4px; }
+
+      &.active {
+        .tab-icon { filter: none; opacity: 1; }
+        .tab-label { color: #ff6a3d; font-weight: 600; }
+      }
+    }
   }
 }

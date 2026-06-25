@@ -148,27 +148,54 @@ async function getMyStall(openid) {
   return { code: 0, message: 'ok', data: stall }
 }
 
-/** 矩形框 + 应用层后续算距离（Day6 完善排序） */
+/** 矩形框粗筛 + 应用层 Haversine 算距离并排序（Day6） */
 async function getNearby(event) {
   const { latitude, longitude, category, keyword } = event
+  const hasGeo = typeof latitude === 'number' && typeof longitude === 'number'
   const where = { status: _.neq('offline') }
 
-  if (typeof latitude === 'number' && typeof longitude === 'number') {
+  if (hasGeo) {
     const span = 0.05 // ~5km 粗框
     where.latitude = _.gte(latitude - span).and(_.lte(latitude + span))
     where.longitude = _.gte(longitude - span).and(_.lte(longitude + span))
   }
   if (category) where.category = category
 
-  let query = stallsCol.where(where)
-  const { data } = await query.limit(50).get()
+  const { data } = await stallsCol.where(where).limit(50).get()
 
   let list = (data || []).map(normalizeStall)
   if (keyword) {
     list = list.filter((s) => s.name && s.name.includes(keyword))
   }
 
+  // 应用层算距离 + 按距离升序（无坐标的摊位排末尾）
+  if (hasGeo) {
+    list.forEach((s) => {
+      s.distance =
+        typeof s.latitude === 'number' && typeof s.longitude === 'number'
+          ? Math.round(haversine(latitude, longitude, s.latitude, s.longitude))
+          : null
+    })
+    list.sort((a, b) => {
+      if (a.distance == null) return 1
+      if (b.distance == null) return -1
+      return a.distance - b.distance
+    })
+  }
+
   return { code: 0, message: 'ok', data: list }
+}
+
+/** Haversine 球面距离，返回米 */
+function haversine(lat1, lng1, lat2, lng2) {
+  const R = 6371000 // 地球半径（米）
+  const toRad = (d) => (d * Math.PI) / 180
+  const dLat = toRad(lat2 - lat1)
+  const dLng = toRad(lng2 - lng1)
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
 async function updateStatus(openid, id, status) {
