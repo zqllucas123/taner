@@ -1,0 +1,309 @@
+.stall-detail-page {
+  min-height: 100vh;
+  height: 100vh;
+  background: #f6f7f9;
+  box-sizing: border-box;
+
+  .loading-ph {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .lp-emoji { font-size: 96px; margin-bottom: 24px; }
+    .lp-text { font-size: 28px; color: #969799; }
+  }
+
+  // 实景图区
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    background: #e9ebf0;
+
+    .hero-img { width: 100%; height: 100%; }
+
+    .hero-ph {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ffe8d6 0%, #ffd5bd 100%);
+      .hp-emoji { font-size: 140px; }
+    }
+
+    .hero-status {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      padding: 8px 20px;
+      border-radius: 24px;
+      font-size: 24px;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .hero-toggle {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 32px;
+      padding: 4px;
+
+      .ht-btn {
+        padding: 10px 24px;
+        font-size: 24px;
+        color: #fff;
+        border-radius: 28px;
+
+        &.active {
+          background: #fff;
+          color: #ff6a3d;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  // 摊位信息卡片
+  .info-card {
+    margin: -32px 24px 0;
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+    .info-head {
+      display: flex;
+      align-items: center;
+
+      .shop-name { font-size: 38px; font-weight: 700; color: #222; }
+      .hot-tag { font-size: 24px; color: #ee0a24; margin-left: 16px; }
+    }
+
+    .info-meta {
+      display: flex;
+      align-items: center;
+      margin: 16px 0;
+
+      .im-cat, .im-rating, .im-credit { font-size: 26px; color: #646566; }
+      .im-rating { color: #ff976a; margin: 0 24px; }
+      .im-credit { color: #07c160; }
+    }
+
+    .shop-desc {
+      font-size: 27px;
+      color: #646566;
+      line-height: 1.6;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .info-rows {
+      margin-top: 16px;
+      border-top: 1px solid #f5f6f7;
+      padding-top: 16px;
+
+      .info-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 0;
+
+        .ir-label { font-size: 26px; color: #969799; flex-shrink: 0; }
+        .ir-value {
+          font-size: 26px;
+          color: #333;
+          text-align: right;
+          margin-left: 24px;
+          flex: 1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  // 公告
+  .notice-card {
+    margin: 20px 24px 0;
+    background: #fff7e6;
+    border: 1px solid #ffe1a8;
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+
+    .nc-icon { font-size: 32px; margin-right: 12px; flex-shrink: 0; }
+    .nc-text { font-size: 26px; color: #b8860b; line-height: 1.6; flex: 1; }
+  }
+
+  // 通用 section
+  .section {
+    margin: 24px 24px 0;
+    background: #fff;
+    border-radius: 24px;
+    padding: 28px;
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .section-title { font-size: 30px; font-weight: 700; color: #222; }
+    .section-count { font-size: 24px; color: #999; }
+
+    .placeholder-box {
+      margin-top: 16px;
+      padding: 40px;
+      background: #f8f9fa;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .pb-text { font-size: 25px; color: #c0c4cc; }
+    }
+  }
+
+  // 商品列表
+  .product-list {
+    .product-card {
+      display: flex;
+      padding: 20px 0;
+      border-bottom: 1px solid #f5f6f7;
+
+      &:last-child { border-bottom: none; }
+
+      .pc-img {
+        position: relative;
+        width: 160px;
+        height: 160px;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #f3f4f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        .pi { width: 100%; height: 100%; }
+        .pi-ph { font-size: 64px; }
+
+        .clearing-badge {
+          position: absolute;
+          top: 0;
+          left: 0;
+          background: #ee0a24;
+          color: #fff;
+          font-size: 20px;
+          padding: 4px 12px;
+          border-bottom-right-radius: 12px;
+        }
+      }
+
+      .pc-body {
+        flex: 1;
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+
+        .pc-name { font-size: 30px; font-weight: 600; color: #222; }
+        .pc-desc {
+          font-size: 24px;
+          color: #969799;
+          margin: 8px 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+
+        .pc-tags {
+          display: flex;
+          gap: 8px;
+          margin: 8px 0;
+        }
+
+        .pc-bottom {
+          margin-top: auto;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .pc-price {
+            display: flex;
+            align-items: baseline;
+
+            .price-now { font-size: 34px; font-weight: 700; color: #ff6a3d; }
+            .price-origin {
+              font-size: 24px;
+              color: #c0c4cc;
+              text-decoration: line-through;
+              margin-left: 12px;
+            }
+          }
+
+          .reserve-btn {
+            padding: 12px 32px;
+            background: linear-gradient(135deg, #ff7e5f 0%, #ff6a3d 100%);
+            color: #fff;
+            font-size: 26px;
+            font-weight: 600;
+            border-radius: 32px;
+          }
+        }
+      }
+    }
+  }
+
+  .page-bottom { height: 140px; }
+
+  // 底部操作栏
+  .action-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 110px;
+    background: #fff;
+    border-top: 1px solid #f0f1f3;
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    padding-bottom: env(safe-area-inset-bottom);
+    z-index: 30;
+
+    .ab-phone {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 40px;
+
+      .abp-icon { font-size: 36px; }
+      .abp-label { font-size: 22px; color: #646566; margin-top: 2px; }
+    }
+
+    .ab-main {
+      flex: 1;
+      height: 80px;
+      line-height: 80px;
+      text-align: center;
+      background: linear-gradient(135deg, #ff7e5f 0%, #ff6a3d 100%);
+      color: #fff;
+      font-size: 30px;
+      font-weight: 600;
+      border-radius: 40px;
+    }
+  }
+}

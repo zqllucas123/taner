@@ -120,8 +120,7 @@ export default function Home() {
   /** 点击卡片 → 进详情（Day7） */
   const handleCardTap = (stall: Stall) => {
     setActiveId(stall.id)
-    Taro.showToast({ title: '摊位详情开发中（Day7）', icon: 'none' })
-    // Day7: Taro.navigateTo({ url: `/packageCustomer/pages/stall-detail/index?id=${stall.id}` })
+    Taro.navigateTo({ url: `/packageCustomer/pages/stall-detail/index?id=${stall.id}` })
   }
 
   const handleTab = (tab: typeof TAB_BAR[number]) => {
