@@ -1,0 +1,9 @@
+{
+  "name": "qrcode",
+  "version": "1.0.0",
+  "description": "聚合摆摊码：getUnlimited 生成小程序码、扫码 scene 解析、扫码计数",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

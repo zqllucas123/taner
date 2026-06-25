@@ -1,0 +1,157 @@
+.qrcode-page {
+  min-height: 100vh;
+  background: #f5f6f8;
+  padding: 32rpx 28rpx 60rpx;
+  box-sizing: border-box;
+
+  .page-head {
+    margin-bottom: 28rpx;
+
+    .page-title {
+      display: block;
+      font-size: 40rpx;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .page-sub {
+      display: block;
+      margin-top: 8rpx;
+      font-size: 26rpx;
+      color: #8a8a8a;
+    }
+  }
+
+  .qr-card {
+    background: #fff;
+    border-radius: 24rpx;
+    padding: 40rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.04);
+
+    .qr-img {
+      width: 420rpx;
+      height: 420rpx;
+    }
+
+    .qr-placeholder {
+      width: 420rpx;
+      height: 420rpx;
+      border: 2rpx dashed #d8d8d8;
+      border-radius: 16rpx;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .ph-emoji {
+        font-size: 80rpx;
+        margin-bottom: 16rpx;
+      }
+
+      .ph-text {
+        font-size: 26rpx;
+        color: #a0a0a0;
+        text-align: center;
+        padding: 0 40rpx;
+      }
+    }
+
+    .qr-meta {
+      margin-top: 24rpx;
+
+      .meta-item {
+        font-size: 26rpx;
+        color: #ff6b35;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .feature-list {
+    margin-top: 32rpx;
+    background: #fff;
+    border-radius: 24rpx;
+    padding: 28rpx;
+
+    .section-title {
+      display: block;
+      font-size: 30rpx;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 16rpx;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      padding: 24rpx 16rpx;
+      border-radius: 16rpx;
+      border: 2rpx solid transparent;
+      transition: all 0.15s;
+
+      &.on {
+        background: #fff5f0;
+        border-color: #ff6b35;
+      }
+
+      .f-emoji {
+        font-size: 44rpx;
+        margin-right: 20rpx;
+      }
+
+      .f-main {
+        flex: 1;
+
+        .f-label {
+          display: block;
+          font-size: 30rpx;
+          color: #1a1a1a;
+          font-weight: 500;
+        }
+
+        .f-desc {
+          display: block;
+          font-size: 24rpx;
+          color: #9a9a9a;
+          margin-top: 4rpx;
+        }
+      }
+
+      .f-check {
+        width: 44rpx;
+        height: 44rpx;
+        border-radius: 50%;
+        border: 2rpx solid #d8d8d8;
+        text-align: center;
+        line-height: 44rpx;
+        color: #fff;
+        font-size: 28rpx;
+
+        &.on {
+          background: #ff6b35;
+          border-color: #ff6b35;
+        }
+      }
+    }
+  }
+
+  .actions {
+    margin-top: 36rpx;
+  }
+
+  .tip {
+    margin-top: 32rpx;
+    padding: 20rpx 24rpx;
+    background: #fff8e6;
+    border-radius: 16rpx;
+
+    .tip-text {
+      font-size: 24rpx;
+      color: #a07b00;
+      line-height: 1.6;
+    }
+  }
+}
