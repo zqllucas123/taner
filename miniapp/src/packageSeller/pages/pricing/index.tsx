@@ -10,6 +10,15 @@ import './index.scss'
 /** 品类选项（与定价规则关键词对齐） */
 const FOOD_TYPES = ['小吃美食', '生鲜果蔬', '服饰饰品', '手工文创', '日用杂货']
 
+/** 品类展示 emoji（设计稿：🍢 街头熟食小吃 等） */
+const FOOD_EMOJI: Record<string, string> = {
+  小吃美食: '🍢',
+  生鲜果蔬: '🍓',
+  服饰饰品: '🎗️',
+  手工文创: '🧶',
+  日用杂货: '🧺',
+}
+
 interface FormState {
   costPrice: string
   marketPrice: string
@@ -70,10 +79,10 @@ export default function Pricing() {
   // 价格档位卡片配置
   const priceCards = result
     ? [
-        { key: 'suggested', label: '建议零售价', value: result.suggestedPrice, hint: '日常主推', accent: 'primary' },
+        { key: 'suggested', label: '建议正常价', value: result.suggestedPrice, hint: '日常主推', accent: 'primary' },
         { key: 'traffic', label: '引流价', value: result.trafficPrice, hint: '冲量获客', accent: 'green' },
-        { key: 'premium', label: '节假日溢价', value: result.premiumPrice, hint: '旺季上浮', accent: 'orange' },
-        { key: 'clearance', label: '清仓价', value: result.clearancePrice, hint: '尾货回笼', accent: 'red' },
+        { key: 'premium', label: '周末/溢价档', value: result.premiumPrice, hint: '旺季上浮', accent: 'orange' },
+        { key: 'clearance', label: '引流/清仓价', value: result.clearancePrice, hint: '尾货回笼', accent: 'red' },
       ]
     : []
 
@@ -81,33 +90,44 @@ export default function Pricing() {
     <ScrollView scrollY className='pricing-page'>
       {/* 顶部说明 */}
       <View className='hero'>
-        <Text className='hero-title'>💰 AI 定价助手</Text>
-        <Text className='hero-sub'>输入成本，智能算出多档价格与保本销量</Text>
+        <Text className='hero-title'>⚡ AI 智能估定价助手 (防止亏本)</Text>
+        <Text className='hero-sub'>输入成本，AI 综合测算多阶黄金定价与保本销量</Text>
+      </View>
+
+      {/* AI 智慧客源偏好提示（设计稿 violet 面板） */}
+      <View className='insight-card'>
+        <Text className='ic-emoji'>🤖</Text>
+        <View className='ic-body'>
+          <Text className='ic-title'>AI 智慧客源偏好提示 (夜市研判千人推送)：</Text>
+          <Text className='ic-text'>
+            系统发现附近夜市近期「宝妈」和「年轻人」浏览许愿比例环比上升，其中【古风缠花饰品】与【平价鲜花】搜索上升。建议下周多备儿童手工和迷你多肉款花束。
+          </Text>
+        </View>
       </View>
 
       {/* 输入表单 */}
       <View className='form-card'>
         <View className='form-row'>
-          <Text className='form-label'>品类</Text>
+          <Text className='form-label'>品类大项</Text>
           <Picker
             mode='selector'
-            range={FOOD_TYPES}
+            range={FOOD_TYPES.map((t) => `${FOOD_EMOJI[t] || ''} ${t}`)}
             value={foodIdx < 0 ? 0 : foodIdx}
             onChange={(e) => setField('foodType', FOOD_TYPES[Number(e.detail.value)])}
           >
             <View className='picker-value'>
-              <Text>{form.foodType}</Text>
+              <Text>{`${FOOD_EMOJI[form.foodType] || ''} ${form.foodType}`}</Text>
               <Text className='picker-arrow'>▾</Text>
             </View>
           </Picker>
         </View>
 
         <View className='form-row'>
-          <Text className='form-label'>进货成本 <Text className='req'>*</Text></Text>
+          <Text className='form-label'>采购成本/件 <Text className='req'>*</Text></Text>
           <Input
             className='form-input'
             type='digit'
-            placeholder='每件进货价'
+            placeholder='货品采购成本 (单条/件)'
             value={form.costPrice}
             onChange={(v) => setField('costPrice', String(v))}
           />
@@ -115,11 +135,11 @@ export default function Pricing() {
         </View>
 
         <View className='form-row'>
-          <Text className='form-label'>同行售价</Text>
+          <Text className='form-label'>同行均价</Text>
           <Input
             className='form-input'
             type='digit'
-            placeholder='同城同类售价（选填）'
+            placeholder='同城同类同行均价（选填）'
             value={form.marketPrice}
             onChange={(v) => setField('marketPrice', String(v))}
           />
@@ -127,11 +147,11 @@ export default function Pricing() {
         </View>
 
         <View className='form-row'>
-          <Text className='form-label'>每日租金</Text>
+          <Text className='form-label'>摊位费/日</Text>
           <Input
             className='form-input'
             type='digit'
-            placeholder='点位租金摊销（选填）'
+            placeholder='一日点位摊位费（选填）'
             value={form.rentPrice}
             onChange={(v) => setField('rentPrice', String(v))}
           />
@@ -151,13 +171,14 @@ export default function Pricing() {
         </View>
 
         <Button className='calc-btn' loading={loading} onClick={handleCalc}>
-          {loading ? '测算中...' : '🤖 智能测算'}
+          {loading ? 'AI 测算中...' : 'AI 综合测算黄金定价 🚀'}
         </Button>
       </View>
 
       {/* 定价结果 */}
       {result && (
         <View className='result-section'>
+          <Text className='rs-title'>📈 AI 推荐多阶定价明细：</Text>
           <View className='price-grid'>
             {priceCards.map((c) => (
               <View key={c.key} className={`price-card accent-${c.accent}`}>
@@ -172,17 +193,17 @@ export default function Pricing() {
           <View className='profit-card'>
             <View className='profit-item'>
               <Text className='pi-value'>{result.marginRate}%</Text>
-              <Text className='pi-label'>毛利率</Text>
+              <Text className='pi-label'>毛利水准</Text>
             </View>
             <View className='profit-divider' />
             <View className='profit-item'>
               <Text className='pi-value'>{result.breakEvenQty || '—'}</Text>
-              <Text className='pi-label'>保本销量 / 日</Text>
+              <Text className='pi-label'>今日卖足此数即保本</Text>
             </View>
             <View className='profit-divider' />
             <View className='profit-item'>
               <Text className='pi-value'>¥{result.costPrice}</Text>
-              <Text className='pi-label'>进货成本</Text>
+              <Text className='pi-label'>采购成本</Text>
             </View>
           </View>
 

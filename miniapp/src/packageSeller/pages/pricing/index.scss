@@ -22,9 +22,40 @@
     }
   }
 
+  // AI 智慧客源偏好提示（设计稿 violet 面板）
+  .insight-card {
+    margin: 24px 24px 0;
+    background: #f5f3ff;                 /* violet-50 */
+    border: 1px solid #ede9fe;           /* violet-100 */
+    border-radius: var(--radius-md);
+    padding: var(--gap-md) var(--gap-lg);
+    display: flex;
+    gap: var(--gap-md);
+
+    .ic-emoji { font-size: 44px; flex-shrink: 0; }
+
+    .ic-body {
+      flex: 1;
+
+      .ic-title {
+        display: block;
+        font-size: var(--fs-sm);
+        font-weight: 700;
+        color: #2e1065;                  /* violet-950 */
+      }
+      .ic-text {
+        display: block;
+        margin-top: 6px;
+        font-size: var(--fs-xs);
+        color: #2e1065;
+        line-height: 1.6;
+      }
+    }
+  }
+
   // 输入表单
   .form-card {
-    margin: -20px 24px 0;
+    margin: 24px 24px 0;
     background: #fff;
     border-radius: 24px;
     padding: 12px 28px 28px;
@@ -87,6 +118,14 @@
   // 结果区
   .result-section {
     margin: 24px;
+
+    .rs-title {
+      display: block;
+      font-size: var(--fs-sm);
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--gap-sm);
+    }
 
     .price-grid {
       display: flex;
