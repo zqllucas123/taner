@@ -86,10 +86,10 @@ export default function WishPool() {
     <View className='wish-pool'>
       <ScrollView scrollY className='wp-scroll'>
         <View className='wp-hero'>
-          <Text className='wp-hero-emoji'>✨</Text>
-          <Text className='wp-hero-title'>许愿池</Text>
+          <Text className='wp-hero-emoji'>🔥</Text>
+          <Text className='wp-hero-title'>双向许愿池</Text>
           <Text className='wp-hero-sub'>
-            {isSeller ? '看看顾客都想要什么，回应他们的心愿吧' : '想吃什么没买到？许个愿，说不定摊主就上新了'}
+            {isSeller ? '看看顾客都想要什么，回应他们的心愿吧' : '想要吃什么、要什么款式发在这里，摊主会安排！'}
           </Text>
         </View>
 
@@ -117,7 +117,7 @@ export default function WishPool() {
 
                   {!!w.vendorReply && (
                     <View className='wc-reply'>
-                      <Text className='wc-reply-tag'>🏪 摊主回应</Text>
+                      <Text className='wc-reply-tag'>👨‍🍳 摊主回馈答复：</Text>
                       <Text className='wc-reply-text'>{w.vendorReply}</Text>
                       {(w.expectPrice || w.expectArrive) && (
                         <View className='wc-reply-meta'>
@@ -125,6 +125,12 @@ export default function WishPool() {
                           {!!w.expectArrive && <Text className='wc-rm'>{w.expectArrive} 到货</Text>}
                         </View>
                       )}
+                    </View>
+                  )}
+
+                  {!w.vendorReply && w.status !== 'declined' && (
+                    <View className='wc-noreply'>
+                      <Text className='wc-noreply-text'>📢 备货筹备中... 已同步至摊主AI分析后台</Text>
                     </View>
                   )}
 
@@ -154,7 +160,7 @@ export default function WishPool() {
       {!isSeller && (
         <View className='wp-fab'>
           <Button type='primary' block onClick={() => setShowWish(true)}>
-            ✨ 我要许愿
+            ✍️ 我也许愿
           </Button>
         </View>
       )}
@@ -162,22 +168,25 @@ export default function WishPool() {
       {/* 顾客许愿弹窗 */}
       <Popup visible={showWish} position='bottom' onClose={() => setShowWish(false)} round>
         <View className='form-sheet'>
-          <Text className='fs-title'>许个愿</Text>
+          <Text className='fs-title'>向摊主许愿一包</Text>
           <View className='fs-cell column'>
-            <Text className='fsc-label'>你想要什么？</Text>
+            <Text className='fsc-label'>输入您希望摊主采购进货、预留定制、或者改口味的期盼：</Text>
             <TextArea
-              placeholder='如「希望能有无糖的豆浆」「想要加大份的炸鸡」'
+              placeholder='例如：周师傅我想吃爆浆芝士多肉鱿鱼烧！加微辣！'
               value={content}
               maxLength={100}
               onChange={(v) => setContent(v)}
             />
+          </View>
+          <View className='fs-tip'>
+            <Text className='fs-tip-text'>💡 摊主收到后会在他的AI驾驶舱查看许愿热力！一旦承接口碑，您将收到系统推送告知。</Text>
           </View>
           <View className='fs-actions'>
             <Button fill='outline' onClick={() => setShowWish(false)}>
               取消
             </Button>
             <Button type='primary' loading={submitting} onClick={handleCreate}>
-              提交心愿
+              发射许愿纸 🛩️
             </Button>
           </View>
         </View>

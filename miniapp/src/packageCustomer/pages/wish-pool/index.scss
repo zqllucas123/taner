@@ -1,9 +1,5 @@
 @use '@/styles/mixins.scss' as *;
 
-// 许愿池页保留紫色主题特色（设计稿本意），杂底/灰文字/边框归一到 token
-$wish-purple: #722ed1;
-$wish-purple-light: #9254de;
-
 .wish-pool {
   min-height: 100vh;
   background: var(--color-bg);
@@ -16,7 +12,7 @@ $wish-purple-light: #9254de;
   .wp-bottom { height: 140px; }
 
   .wp-hero {
-    background: linear-gradient(135deg, $wish-purple, $wish-purple-light);
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
     color: #fff;
     padding: 48px var(--gap-lg) 40px;
     display: flex;
@@ -58,7 +54,7 @@ $wish-purple-light: #9254de;
         font-size: var(--fs-xs);
 
         &.pending { color: var(--text-sub); background: var(--color-border-strong); }
-        &.preparing { color: $wish-purple; background: rgba(114, 46, 209, 0.1); }
+        &.preparing { color: var(--color-accent); background: var(--color-accent-bg); }
         &.arrived { color: var(--color-primary); background: var(--color-primary-bg); }
         &.declined { color: var(--color-danger); background: var(--status-active-bg); }
       }
@@ -66,16 +62,17 @@ $wish-purple-light: #9254de;
 
     .wc-content { font-size: var(--fs-md); color: var(--text-main); line-height: 1.5; }
 
-    // 摊主回应气泡（紫色主题）
+    // 摊主回应气泡（设计稿：emerald 左边框气泡）
     .wc-reply {
-      background: rgba(114, 46, 209, 0.06);
-      border-radius: var(--radius-sm);
+      background: var(--color-primary-bg);
+      border-left: 4px solid var(--color-primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
       padding: 18px 20px;
       display: flex;
       flex-direction: column;
       gap: var(--gap-xs);
 
-      .wc-reply-tag { font-size: var(--fs-sm); color: $wish-purple; font-weight: 600; }
+      .wc-reply-tag { font-size: var(--fs-sm); color: var(--color-primary-dark); font-weight: 600; }
       .wc-reply-text { font-size: var(--fs-base); color: var(--text-body); line-height: 1.5; }
 
       .wc-reply-meta {
@@ -83,8 +80,18 @@ $wish-purple-light: #9254de;
         gap: var(--gap-md);
         margin-top: 4px;
 
-        .wc-rm { font-size: var(--fs-xs); color: $wish-purple; }
+        .wc-rm { font-size: var(--fs-xs); color: var(--color-primary-dark); }
       }
+    }
+
+    // 未回复占位（设计稿：amber 虚线框）
+    .wc-noreply {
+      background: var(--color-accent-bg);
+      border: 1px dashed var(--color-accent-light);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+
+      .wc-noreply-text { font-size: var(--fs-xs); color: var(--color-accent); font-weight: 600; }
     }
 
     .wc-foot {
@@ -142,6 +149,15 @@ $wish-purple-light: #9254de;
     &.column { display: flex; flex-direction: column; gap: var(--gap-sm); }
 
     .fsc-label { font-size: var(--fs-base); color: var(--text-body); }
+  }
+
+  .fs-tip {
+    background: var(--color-primary-bg);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    margin-bottom: var(--gap-lg);
+
+    .fs-tip-text { font-size: var(--fs-xs); color: var(--color-primary-dark); line-height: 1.6; }
   }
 
   .fs-actions {
