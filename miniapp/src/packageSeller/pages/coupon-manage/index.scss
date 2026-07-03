@@ -1,6 +1,6 @@
 .coupon-manage {
   min-height: 100vh;
-  background: #f6f7f9;
+  background: var(--color-bg);
 
   .cm-scroll {
     height: 100vh;
@@ -24,7 +24,7 @@
     .cc-left {
       width: 200px;
       flex-shrink: 0;
-      background: linear-gradient(135deg, #ff7a45, #ff4d4f);
+      background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
       color: #fff;
       display: flex;
       flex-direction: column;
@@ -49,19 +49,19 @@
         justify-content: space-between;
         gap: 12px;
 
-        .cc-title { font-size: 30px; font-weight: 600; color: #1f2329; }
+        .cc-title { font-size: 30px; font-weight: 600; color: var(--text-main); }
       }
 
-      .cc-type { font-size: 24px; color: #86909c; }
+      .cc-type { font-size: 24px; color: var(--text-sub); }
 
       .cc-meta {
         display: flex;
         justify-content: space-between;
         font-size: 24px;
-        color: #86909c;
+        color: var(--text-sub);
         margin-top: 4px;
 
-        .cc-claimed { color: #4e5969; }
+        .cc-claimed { color: var(--text-body); }
       }
 
       .cc-actions {
@@ -89,7 +89,7 @@
   .fs-title {
     font-size: 32px;
     font-weight: 700;
-    color: #1f2329;
+    color: var(--text-main);
     display: block;
     text-align: center;
     margin-bottom: 24px;
@@ -100,7 +100,7 @@
 
     &.column { display: flex; flex-direction: column; gap: 12px; }
 
-    .fsc-label { font-size: 26px; color: #4e5969; }
+    .fsc-label { font-size: 26px; color: var(--text-body); }
   }
 
   .fs-actions {

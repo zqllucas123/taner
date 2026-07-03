@@ -1,68 +1,121 @@
+@use '@/styles/mixins.scss' as *;
+
 .my-coupons {
   min-height: 100vh;
-  background: #f6f7f9;
+  background: var(--color-bg);
 
   .mc-scroll {
     height: calc(100vh - 88px);
-    padding: 24px;
+    padding: var(--gap-lg);
     box-sizing: border-box;
   }
 
-  .mc-bottom { height: 40px; }
+  .mc-bottom { height: var(--gap-xl); }
 
-  .coupon-list { display: flex; flex-direction: column; gap: 20px; }
+  /* 空状态 */
+  .mc-empty {
+    @include empty-state;
+  }
+
+  .coupon-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+  }
 
   .coupon-ticket {
+    @include card;
     position: relative;
     display: flex;
-    background: #fff;
-    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 
+    /* 已使用 / 已过期：整体褪色 */
     &.status-used,
     &.status-expired {
-      .ct-left { background: #c9cdd4; }
+      .ct-left {
+        background: var(--color-bg);
+        color: var(--text-muted);
+      }
+      .ct-amount { color: var(--text-muted); }
     }
 
+    /* 左侧金额区（虚线撕口分区） */
     .ct-left {
       width: 200px;
       flex-shrink: 0;
-      background: linear-gradient(135deg, #ff7a45, #ff4d4f);
-      color: #fff;
+      background: var(--color-primary-bg);
+      color: var(--color-primary);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 28px 12px;
+      padding: var(--gap-lg) var(--gap-sm);
+      /* 虚线撕口 */
+      border-right: 2px dashed var(--color-border-strong);
 
-      .ct-amount { font-size: 44px; font-weight: 700; }
-      .ct-min { font-size: 22px; opacity: 0.9; margin-top: 6px; }
+      .ct-amount {
+        font-size: var(--fs-xl);
+        font-weight: 700;
+        color: var(--color-primary);
+      }
+      .ct-min {
+        font-size: var(--fs-xs);
+        margin-top: var(--gap-xs);
+      }
     }
 
+    /* 撕口圆形挖角（上下半圆缺口，增强券感） */
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 188px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--color-bg);
+      z-index: 1;
+    }
+    &::before { top: -12px; }
+    &::after { bottom: -12px; }
+
+    /* 右侧信息区 */
     .ct-body {
       flex: 1;
-      padding: 24px;
+      padding: var(--gap-lg);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: var(--gap-xs);
 
-      .ct-title { font-size: 30px; font-weight: 600; color: #1f2329; }
-      .ct-expiry { font-size: 24px; color: #86909c; }
-      .ct-tip { font-size: 22px; color: #ff7a45; }
+      .ct-title {
+        font-size: var(--fs-md);
+        font-weight: 600;
+        color: var(--text-main);
+        @include ellipsis;
+      }
+      .ct-expiry {
+        font-size: var(--fs-sm);
+        color: var(--text-sub);
+      }
+      .ct-tip {
+        font-size: var(--fs-xs);
+        color: var(--color-primary);
+      }
     }
 
+    /* 状态印章 */
     .ct-stamp {
       position: absolute;
-      right: 24px;
+      right: var(--gap-lg);
       top: 50%;
       transform: translateY(-50%) rotate(-12deg);
-      font-size: 28px;
+      font-size: var(--fs-base);
       font-weight: 700;
-      color: #c9cdd4;
-      border: 4px solid #c9cdd4;
-      border-radius: 12px;
+      color: var(--text-muted);
+      border: 4px solid var(--color-border-strong);
+      border-radius: var(--radius-sm);
       padding: 4px 14px;
+      z-index: 2;
     }
   }
 }

@@ -1,0 +1,129 @@
+/**
+ * 全局 SCSS Mixins · 地摊烟火小店
+ * ──────────────────────────────────────────────
+ * 页面 scss 顶部 `@import '@/styles/mixins.scss';` 即可复用。
+ * 这里只放结构性 mixin，颜色一律走 app.scss 定义的 CSS 变量（单一数据源）。
+ */
+
+/* 卡片：白底大圆角轻阴影细边 */
+@mixin card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* 主按钮（emerald 实心） */
+@mixin btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-primary);
+  transition: transform 0.15s, background 0.15s;
+
+  &:active {
+    background: var(--color-primary-dark);
+    transform: scale(0.98);
+  }
+}
+
+/* 次按钮（白底描边） */
+@mixin btn-ghost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-card);
+  color: var(--text-body);
+  font-weight: 600;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  transition: transform 0.15s;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+/* 胶囊标签 */
+@mixin pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  padding: 4px 16px;
+  white-space: nowrap;
+}
+
+/**
+ * 出摊状态标签
+ * @param $status: active | upcoming | offline
+ */
+@mixin status-tag($status) {
+  @include pill;
+  font-weight: 600;
+
+  @if $status == active {
+    color: var(--status-active);
+    background: var(--status-active-bg);
+  } @else if $status == upcoming {
+    color: var(--status-upcoming);
+    background: var(--status-upcoming-bg);
+  } @else {
+    color: var(--status-offline);
+    background: var(--status-offline-bg);
+  }
+}
+
+/* 单行省略 */
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 多行省略 */
+@mixin ellipsis-lines($lines: 2) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+  overflow: hidden;
+}
+
+/* 空状态容器 */
+@mixin empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 96px 32px;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  text-align: center;
+}
+
+/* 出摊中脉冲动画（红点呼吸） */
+@mixin pulse-dot($color: var(--status-active)) {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: $color;
+    opacity: 0.6;
+    animation: u-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+}
+
+@keyframes u-ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}

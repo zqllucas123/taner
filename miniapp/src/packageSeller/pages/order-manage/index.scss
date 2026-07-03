@@ -1,7 +1,7 @@
 .order-manage-page {
   min-height: 100vh;
   height: 100vh;
-  background: #f6f7f9;
+  background: var(--color-bg);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
   .tab-bar {
     display: flex;
     background: #fff;
-    border-bottom: 1px solid #f2f3f5;
+    border-bottom: 1px solid var(--color-border);
     flex-shrink: 0;
 
     .tab-item {
@@ -23,7 +23,7 @@
 
       .ti-label {
         font-size: 28px;
-        color: #646566;
+        color: var(--text-body);
       }
       .ti-badge {
         margin-left: 8px;
@@ -31,7 +31,7 @@
         height: 32px;
         padding: 0 8px;
         border-radius: 16px;
-        background: #ff5722;
+        background: var(--color-primary);
         color: #fff;
         font-size: 20px;
         line-height: 32px;
@@ -39,7 +39,7 @@
       }
 
       &.active {
-        .ti-label { color: #ff5722; font-weight: 600; font-size: 30px; }
+        .ti-label { color: var(--color-primary); font-weight: 600; font-size: 30px; }
         &::after {
           content: '';
           position: absolute;
@@ -49,7 +49,7 @@
           width: 48px;
           height: 6px;
           border-radius: 3px;
-          background: #ff5722;
+          background: var(--color-primary);
         }
       }
     }
@@ -80,22 +80,22 @@
       justify-content: space-between;
       align-items: center;
       padding-bottom: 16px;
-      border-bottom: 1px solid #f2f3f5;
+      border-bottom: 1px solid var(--color-border);
 
-      .oc-no { font-size: 26px; color: #969799; }
+      .oc-no { font-size: 26px; color: var(--text-sub); }
       .oc-status { font-size: 26px; font-weight: 600; }
     }
 
     .oc-items {
       padding: 16px 0;
-      border-bottom: 1px solid #f2f3f5;
+      border-bottom: 1px solid var(--color-border);
 
       .oci-row {
         display: flex;
         justify-content: space-between;
         padding: 6px 0;
-        .oci-name { font-size: 28px; color: #323233; }
-        .oci-sub { font-size: 26px; color: #646566; }
+        .oci-name { font-size: 28px; color: var(--text-main); }
+        .oci-sub { font-size: 26px; color: var(--text-body); }
       }
     }
 
@@ -106,12 +106,12 @@
         display: flex;
         align-items: center;
         padding: 6px 0;
-        .ocm-label { font-size: 24px; color: #969799; width: 160px; flex-shrink: 0; }
-        .ocm-value { font-size: 24px; color: #323233; flex: 1; }
+        .ocm-label { font-size: 24px; color: var(--text-sub); width: 160px; flex-shrink: 0; }
+        .ocm-value { font-size: 24px; color: var(--text-main); flex: 1; }
         .ocm-code {
           font-size: 28px;
           font-weight: 700;
-          color: #ff5722;
+          color: var(--color-primary);
           letter-spacing: 2px;
           font-family: 'Courier New', monospace;
         }
@@ -123,12 +123,12 @@
       justify-content: space-between;
       align-items: center;
       padding-top: 16px;
-      border-top: 1px solid #f2f3f5;
+      border-top: 1px solid var(--color-border);
 
       .oc-amount {
         font-size: 24px;
-        color: #646566;
-        .oc-price { font-size: 34px; font-weight: 700; color: #ff5722; }
+        color: var(--text-body);
+        .oc-price { font-size: 34px; font-weight: 700; color: var(--color-primary); }
       }
 
       .oc-actions {
@@ -145,11 +145,11 @@
         }
         .btn-ghost {
           background: #fff;
-          color: #646566;
-          border: 1px solid #dcdee0;
+          color: var(--text-body);
+          border: 1px solid var(--color-border-strong);
         }
         .btn-main {
-          background: linear-gradient(135deg, #ff7e3d 0%, #ff5722 100%);
+          background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
           color: #fff;
           font-weight: 600;
         }
@@ -171,7 +171,7 @@
     width: 120px;
     height: 120px;
     border-radius: 60px;
-    background: linear-gradient(135deg, #ff7e3d 0%, #ff5722 100%);
+    background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
     box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
     z-index: 10;
 
@@ -186,11 +186,11 @@
     .cd-tip {
       display: block;
       font-size: 26px;
-      color: #969799;
+      color: var(--text-sub);
       margin-bottom: 20px;
     }
     .cd-input {
-      border: 1px solid #ebedf0;
+      border: 1px solid var(--color-border);
       border-radius: 12px;
       padding: 12px 20px;
     }

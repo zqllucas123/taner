@@ -1,11 +1,11 @@
 .stall-setting-page {
   min-height: 100vh;
-  background: #f6f7f9;
+  background: var(--color-bg);
   padding-bottom: 160px;
 
   .form-header {
     padding: 40px 32px 24px;
-    background: linear-gradient(135deg, #ff7a45 0%, #ff4d4f 100%);
+    background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
     color: #fff;
 
     .form-title {
@@ -58,12 +58,12 @@
       padding: 8px 28px;
       font-size: 26px;
       border-radius: 999px;
-      background: #f0f0f0;
+      background: var(--color-border);
       color: #666;
 
       &.active {
-        background: #fff0eb;
-        color: #ff4d4f;
+        background: var(--color-primary-bg);
+        color: var(--color-danger);
         font-weight: 600;
       }
     }

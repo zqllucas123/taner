@@ -1,12 +1,12 @@
 .pricing-page {
   min-height: 100vh;
   height: 100vh;
-  background: #f6f7f9;
+  background: var(--color-bg);
   box-sizing: border-box;
 
   .hero {
     padding: 48px 32px 36px;
-    background: linear-gradient(135deg, #ff7e5f 0%, #ff6a3d 100%);
+    background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
     display: flex;
     flex-direction: column;
 
@@ -34,7 +34,7 @@
       display: flex;
       align-items: center;
       min-height: 96px;
-      border-bottom: 1px solid #f0f1f3;
+      border-bottom: 1px solid var(--color-border);
 
       .form-label {
         width: 160px;
@@ -42,7 +42,7 @@
         color: #333;
         flex-shrink: 0;
 
-        .req { color: #ee0a24; }
+        .req { color: var(--color-danger); }
       }
 
       .form-input {
@@ -76,7 +76,7 @@
       height: 88px;
       line-height: 88px;
       border-radius: 44px;
-      background: linear-gradient(135deg, #ff7e5f 0%, #ff6a3d 100%);
+      background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
       color: #fff;
       font-size: 30px;
       font-weight: 600;
@@ -108,10 +108,10 @@
         .pc-value { font-size: 44px; font-weight: 700; margin: 8px 0; color: #222; }
         .pc-hint { font-size: 22px; color: #bbb; }
 
-        &.accent-primary { border-left-color: #ff6a3d; .pc-value { color: #ff6a3d; } }
-        &.accent-green { border-left-color: #07c160; .pc-value { color: #07c160; } }
-        &.accent-orange { border-left-color: #ff976a; .pc-value { color: #ff976a; } }
-        &.accent-red { border-left-color: #ee0a24; .pc-value { color: #ee0a24; } }
+        &.accent-primary { border-left-color: var(--color-primary); .pc-value { color: var(--color-primary); } }
+        &.accent-green { border-left-color: var(--color-primary); .pc-value { color: var(--color-primary); } }
+        &.accent-orange { border-left-color: var(--color-accent); .pc-value { color: var(--color-accent); } }
+        &.accent-red { border-left-color: var(--color-danger); .pc-value { color: var(--color-danger); } }
       }
     }
 
@@ -130,22 +130,22 @@
         flex-direction: column;
         align-items: center;
 
-        .pi-value { font-size: 40px; font-weight: 700; color: #ff6a3d; }
+        .pi-value { font-size: 40px; font-weight: 700; color: var(--color-primary); }
         .pi-label { font-size: 24px; color: #999; margin-top: 8px; }
       }
 
       .profit-divider {
         width: 1px;
         height: 60px;
-        background: #f0f1f3;
+        background: var(--color-border);
       }
     }
 
     // AI 说明
     .reasoning-card {
       margin-top: 20px;
-      background: #fff7f3;
-      border: 1px solid #ffe2d5;
+      background: var(--color-primary-bg);
+      border: 1px solid #a7f3d0;
       border-radius: 20px;
       padding: 24px;
       display: flex;
@@ -161,10 +161,10 @@
       line-height: 84px;
       border-radius: 42px;
       background: #fff;
-      color: #ff6a3d;
+      color: var(--color-primary);
       font-size: 30px;
       font-weight: 600;
-      border: 2px solid #ff6a3d;
+      border: 2px solid var(--color-primary);
     }
   }
 
@@ -182,7 +182,7 @@
       padding: 28px 24px;
 
       .hs-title { font-size: 28px; font-weight: 600; color: #333; }
-      .hs-toggle { font-size: 26px; color: #ff6a3d; }
+      .hs-toggle { font-size: 26px; color: var(--color-primary); }
     }
 
     .history-list {
@@ -193,7 +193,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 20px 0;
-        border-top: 1px solid #f5f6f7;
+        border-top: 1px solid var(--color-bg);
 
         .hi-left {
           display: flex;
@@ -205,7 +205,7 @@
           display: flex;
           flex-direction: column;
           align-items: flex-end;
-          .hi-price { font-size: 26px; color: #ff6a3d; font-weight: 600; }
+          .hi-price { font-size: 26px; color: var(--color-primary); font-weight: 600; }
           .hi-margin { font-size: 22px; color: #999; margin-top: 4px; }
         }
       }
@@ -250,7 +250,7 @@
           align-items: center;
           justify-content: space-between;
           padding: 24px 0;
-          border-bottom: 1px solid #f5f6f7;
+          border-bottom: 1px solid var(--color-bg);
 
           .ap-info {
             display: flex;

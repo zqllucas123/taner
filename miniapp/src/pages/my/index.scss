@@ -1,13 +1,13 @@
 .my-page {
   min-height: 100vh;
-  background: #f5f6f8;
+  background: var(--color-bg);
   padding-bottom: 64px;
 
   &.theme-seller {
-    --theme-color: #ff976a;
+    --theme-color: var(--color-accent);
   }
   &.theme-customer {
-    --theme-color: #07c160;
+    --theme-color: var(--color-primary);
   }
 }
 
@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   padding: 56px 40px 48px;
-  background: var(--theme-color, #07c160);
+  background: var(--theme-color, var(--color-primary));
 
   .avatar {
     width: 120px;
@@ -48,7 +48,7 @@
 
     .login-btn {
       background: rgba(255, 255, 255, 0.9);
-      color: var(--theme-color, #07c160);
+      color: var(--theme-color, var(--color-primary));
       font-size: 30px;
       font-weight: 600;
       border-radius: 12px;
@@ -73,12 +73,12 @@
   .switch-text {
     font-size: 30px;
     font-weight: 600;
-    color: var(--theme-color, #07c160);
+    color: var(--theme-color, var(--color-primary));
   }
 
   .switch-arrow {
     font-size: 34px;
-    color: var(--theme-color, #07c160);
+    color: var(--theme-color, var(--color-primary));
   }
 }
 
@@ -94,7 +94,7 @@
     padding: 36px 32px;
 
     & + .menu-item {
-      border-top: 1px solid #f0f1f3;
+      border-top: 1px solid var(--color-border);
     }
 
     .menu-icon {
@@ -118,7 +118,7 @@
 .logout-btn {
   margin: 48px 32px 0;
   background: #fff;
-  color: #ee0a24;
+  color: var(--color-danger);
   font-size: 30px;
   border-radius: 16px;
   height: 92px;

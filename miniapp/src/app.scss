@@ -1,0 +1,119 @@
+/**
+ * 全局样式 · 地摊烟火小店
+ * ──────────────────────────────────────────────
+ * 设计 Token 以 CSS 自定义属性形式定义在 page 根选择器，
+ * 所有页面自动继承，改造时直接用 var(--xxx) 引用，无需 @import。
+ * 设计语言对齐 UI/ 设计稿：emerald 翠绿主色 + amber 琥珀辅色 + slate 中性色。
+ */
+
+page {
+  /* ===== 主色：emerald 翠绿 ===== */
+  --color-primary: #059669;        /* emerald-600 主色/主按钮 */
+  --color-primary-light: #10b981;  /* emerald-500 亮主色/渐变 */
+  --color-primary-dark: #047857;   /* emerald-700 按下态/深主色 */
+  --color-primary-bg: #ecfdf5;     /* emerald-50 主色浅背景 */
+  --color-primary-border: #a7f3d0; /* emerald-200 主色边框 */
+
+  /* ===== 辅色：amber 琥珀（摊主端强调 / 评分 / 提示）===== */
+  --color-accent: #f59e0b;         /* amber-500 */
+  --color-accent-light: #fbbf24;   /* amber-400 */
+  --color-accent-bg: #fffbeb;      /* amber-50 */
+
+  /* ===== 中性色：slate ===== */
+  --color-bg: #f8fafc;             /* slate-50 页面底色 */
+  --color-card: #ffffff;           /* 卡片底色 */
+  --color-border: #f1f5f9;         /* slate-100 细边/分隔 */
+  --color-border-strong: #e2e8f0;  /* slate-200 较强边框 */
+  --text-main: #0f172a;            /* slate-900 主文字 */
+  --text-body: #334155;            /* slate-700 正文 */
+  --text-sub: #64748b;             /* slate-500 副文字 */
+  --text-muted: #94a3b8;           /* slate-400 次要/占位 */
+
+  /* ===== 状态色 ===== */
+  --status-active: #ef4444;        /* red-500 出摊中 */
+  --status-active-bg: #fef2f2;     /* red-50 */
+  --status-upcoming: #f59e0b;      /* amber-500 即将出摊 */
+  --status-upcoming-bg: #fffbeb;   /* amber-50 */
+  --status-offline: #94a3b8;       /* slate-400 已收摊/打烊 */
+  --status-offline-bg: #f1f5f9;    /* slate-100 */
+
+  /* ===== 语义色 ===== */
+  --color-danger: #ef4444;         /* 删除/危险 */
+  --color-like: #f43f5e;           /* rose-500 点赞/许愿 */
+  --color-success: #059669;        /* 成功 = 主色 */
+
+  /* ===== 圆角 ===== */
+  --radius-sm: 12px;               /* 小元素/标签 */
+  --radius-md: 16px;               /* 按钮/输入框 */
+  --radius-card: 24px;             /* 卡片 rounded-2xl */
+  --radius-lg: 32px;               /* 大卡片/弹窗 */
+  --radius-pill: 999px;            /* 胶囊/圆 */
+
+  /* ===== 阴影 ===== */
+  --shadow-xs: 0 1px 4px rgba(15, 23, 42, 0.04);
+  --shadow-card: 0 6px 20px -8px rgba(15, 23, 42, 0.12);
+  --shadow-pop: 0 12px 36px -8px rgba(15, 23, 42, 0.18);
+  --shadow-primary: 0 6px 16px -4px rgba(5, 150, 105, 0.35);
+
+  /* ===== 间距（统一节奏）===== */
+  --gap-xs: 8px;
+  --gap-sm: 12px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+  --gap-xl: 32px;
+
+  /* ===== 字号 ===== */
+  --fs-xs: 22px;     /* 辅助/角标 */
+  --fs-sm: 24px;     /* 副文字 */
+  --fs-base: 28px;   /* 正文 */
+  --fs-md: 30px;     /* 卡片标题 */
+  --fs-lg: 34px;     /* 区块标题 */
+  --fs-xl: 40px;     /* 页面大标题 */
+
+  /* ===== 基础排版 ===== */
+  background: var(--color-bg);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-size: var(--fs-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== 全局通用工具类（可选直接用）===== */
+
+/* 卡片：白底大圆角轻阴影细边 */
+.u-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* 主按钮 */
+.u-btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-primary);
+  font-weight: 600;
+}
+.u-btn-primary:active {
+  background: var(--color-primary-dark);
+}
+
+/* 胶囊标签 */
+.u-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  padding: 4px 16px;
+}
+
+/* 单行省略 */
+.u-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

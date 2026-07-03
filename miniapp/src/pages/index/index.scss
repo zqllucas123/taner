@@ -27,7 +27,7 @@
   .hero-sub {
     margin-top: 16px;
     font-size: 24px;
-    color: #8a94a6;
+    color: var(--text-sub);
   }
 }
 
@@ -50,7 +50,7 @@
 
     .label {
       font-size: 28px;
-      color: #8a94a6;
+      color: var(--text-sub);
     }
 
     .value {
@@ -60,7 +60,7 @@
 
       &.tiny {
         font-size: 24px;
-        color: #07c160;
+        color: var(--color-primary);
       }
     }
   }
@@ -85,7 +85,7 @@
   }
 
   .btn-primary {
-    background: #07c160;
+    background: var(--color-primary);
     color: #fff;
   }
 
@@ -96,12 +96,12 @@
   }
 
   .btn-seller {
-    background: #ff976a;
+    background: var(--color-accent);
     color: #fff;
   }
 
   .btn-customer {
-    background: #07c160;
+    background: var(--color-primary);
     color: #fff;
   }
 }
@@ -115,13 +115,13 @@
 
   .btn-mini {
     background: rgba(255, 255, 255, 0.06);
-    color: #8a94a6;
+    color: var(--text-sub);
     border: 1px dashed rgba(255, 255, 255, 0.2);
   }
 
   .echo-result {
     font-size: 22px;
-    color: #07c160;
+    color: var(--color-primary);
     word-break: break-all;
     text-align: center;
   }

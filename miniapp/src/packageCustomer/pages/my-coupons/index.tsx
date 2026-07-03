@@ -43,7 +43,9 @@ export default function MyCoupons() {
 
       <ScrollView scrollY className='mc-scroll'>
         {ownedCoupons.length === 0 ? (
-          <Empty description='暂无优惠券' />
+          <View className='mc-empty'>
+            <Empty description='暂无优惠券' />
+          </View>
         ) : (
           <View className='coupon-list'>
             {ownedCoupons.map((uc) => (

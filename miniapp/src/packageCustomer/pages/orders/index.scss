@@ -1,7 +1,9 @@
+@use '@/styles/mixins.scss' as *;
+
 .orders-page {
   min-height: 100vh;
   height: 100vh;
-  background: #f6f7f9;
+  background: var(--color-bg);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -9,8 +11,8 @@
   // Tab 栏
   .tab-bar {
     display: flex;
-    background: #fff;
-    border-bottom: 1px solid #f2f3f5;
+    background: var(--color-card);
+    border-bottom: 1px solid var(--color-border);
     flex-shrink: 0;
 
     .tab-item {
@@ -21,10 +23,10 @@
       height: 88px;
       position: relative;
 
-      .ti-label { font-size: 28px; color: #646566; }
+      .ti-label { font-size: var(--fs-base); color: var(--text-body); }
 
       &.active {
-        .ti-label { color: #ff5722; font-weight: 600; font-size: 30px; }
+        .ti-label { color: var(--color-primary); font-weight: 600; font-size: var(--fs-md); }
         &::after {
           content: '';
           position: absolute;
@@ -33,8 +35,8 @@
           transform: translateX(-50%);
           width: 48px;
           height: 6px;
-          border-radius: 3px;
-          background: #ff5722;
+          border-radius: var(--radius-pill);
+          background: var(--color-primary);
         }
       }
     }
@@ -45,70 +47,72 @@
     height: 0;
   }
 
-  .empty-wrap { padding-top: 120px; }
+  .empty-wrap {
+    @include empty-state;
+    padding-top: 120px;
+  }
 
-  .order-list { padding: 20px 24px; }
+  .order-list { padding: var(--gap-md) var(--gap-lg); }
 
   .order-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    @include card;
+    padding: var(--gap-lg);
+    margin-bottom: var(--gap-md);
 
     .oc-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 16px;
-      border-bottom: 1px solid #f2f3f5;
+      padding-bottom: var(--gap-md);
+      border-bottom: 1px solid var(--color-border);
 
-      .oc-no { font-size: 26px; color: #969799; }
-      .oc-status { font-size: 26px; font-weight: 600; }
+      .oc-no { font-size: var(--fs-sm); color: var(--text-sub); }
+      .oc-status { font-size: var(--fs-sm); font-weight: 600; }
     }
 
-    // 取货码醒目展示
+    // 取货码醒目展示（设计稿：主色浅底 + 主色边框 + 白底等宽码）
     .oc-code-box {
-      margin: 16px 0;
-      padding: 24px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #fff4ec 0%, #ffe8d6 100%);
+      margin: var(--gap-md) 0;
+      padding: var(--gap-lg);
+      border-radius: var(--radius-md);
+      background: var(--color-primary-bg);
+      border: 1px solid var(--color-primary-border);
       display: flex;
       flex-direction: column;
       align-items: center;
 
-      .occ-label { font-size: 24px; color: #ff976a; margin-bottom: 8px; }
+      .occ-label { font-size: var(--fs-sm); color: var(--color-accent); margin-bottom: var(--gap-xs); }
       .occ-code {
         font-size: 56px;
         font-weight: 800;
         letter-spacing: 6px;
-        color: #ff5722;
+        color: var(--color-primary);
         font-family: 'Courier New', monospace;
       }
     }
 
     .oc-items {
-      padding: 16px 0;
-      border-bottom: 1px solid #f2f3f5;
+      padding: var(--gap-md) 0;
+      border-bottom: 1px solid var(--color-border);
 
       .oci-row {
         display: flex;
         justify-content: space-between;
         padding: 6px 0;
-        .oci-name { font-size: 28px; color: #323233; }
-        .oci-sub { font-size: 26px; color: #646566; }
+        .oci-name { font-size: var(--fs-base); color: var(--text-main); }
+        .oci-sub { font-size: var(--fs-sm); color: var(--text-body); }
       }
     }
 
     .oc-meta {
-      padding: 16px 0;
+      padding: var(--gap-md) 0;
 
       .ocm-row {
         display: flex;
         align-items: center;
         padding: 6px 0;
-        .ocm-label { font-size: 24px; color: #969799; width: 160px; flex-shrink: 0; }
-        .ocm-value { font-size: 24px; color: #323233; flex: 1; }
+        .ocm-label { font-size: var(--fs-sm); color: var(--text-sub); width: 160px; flex-shrink: 0; }
+        .ocm-value { font-size: var(--fs-sm); color: var(--text-main); flex: 1; }
       }
     }
 
@@ -116,13 +120,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 16px;
-      border-top: 1px solid #f2f3f5;
+      padding-top: var(--gap-md);
+      border-top: 1px solid var(--color-border);
 
       .oc-amount {
-        font-size: 24px;
-        color: #646566;
-        .oc-price { font-size: 34px; font-weight: 700; color: #ff5722; }
+        font-size: var(--fs-sm);
+        color: var(--text-body);
+        .oc-price { font-size: var(--fs-lg); font-weight: 700; color: var(--color-primary); }
       }
 
       .btn {
@@ -130,13 +134,11 @@
         height: 64px;
         line-height: 64px;
         text-align: center;
-        border-radius: 32px;
-        font-size: 28px;
+        font-size: var(--fs-base);
       }
       .btn-ghost {
-        background: #fff;
-        color: #646566;
-        border: 1px solid #dcdee0;
+        @include btn-ghost;
+        border-radius: var(--radius-pill);
       }
     }
   }
