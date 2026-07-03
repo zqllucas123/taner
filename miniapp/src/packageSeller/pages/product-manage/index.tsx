@@ -148,6 +148,10 @@ export default function ProductManage() {
           <Empty description='还没有商品，点右下角添加吧' />
         )}
 
+        {products.length > 0 && (
+          <Text className='list-title'>当前摆摊货物 ({products.length})</Text>
+        )}
+
         {products.map((p) => {
           const img = resolveImg(p.imageUrl)
           return (
@@ -166,6 +170,7 @@ export default function ProductManage() {
                   <Text className='price'>¥{p.price}</Text>
                   {p.originalPrice ? <Text className='origin'>¥{p.originalPrice}</Text> : null}
                   <Text className='stock'>库存 {p.stock}</Text>
+                  <Text className='sold'>已售 {p.soldCount || 0}</Text>
                 </View>
                 {p.category ? <Text className='cate'>{p.category}</Text> : null}
 

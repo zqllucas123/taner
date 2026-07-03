@@ -10,6 +10,15 @@
 
   .list-bottom { height: 140px; }
 
+  .list-title {
+    display: block;
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--text-sub);
+    margin-bottom: var(--gap-sm);
+    padding: 0 4px;
+  }
+
   .product-card {
     display: flex;
     background: #fff;
@@ -74,6 +83,7 @@
         .price { font-size: 32px; color: var(--color-danger); font-weight: 700; }
         .origin { font-size: 24px; color: #bbb; text-decoration: line-through; }
         .stock { font-size: 24px; color: #999; margin-left: auto; }
+        .sold { font-size: 24px; color: #999; margin-left: 12px; }
       }
 
       .cate {
