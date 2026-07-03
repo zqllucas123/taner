@@ -4,6 +4,7 @@
 import { create } from 'zustand'
 import type { Stall, StallStatus } from '@/types'
 import { callFunction } from '@/services/cloud'
+import { filterMockStalls } from '@/data/mockStalls'
 
 interface StallQuery {
   latitude?: number
@@ -45,9 +46,16 @@ export const useStallStore = create<StallState>((set, get) => ({
     set({ loading: true })
     try {
       const list = await callFunction<Stall[]>('stall', { action: 'nearby', ...params })
-      set({ stalls: list || [] })
+      if (list && list.length > 0) {
+        set({ stalls: list })
+      } else {
+        // 云函数无数据时用 mock 兜底，便于 UI 还原度对照
+        console.warn('[stallStore] 云端无数据，使用 mock 摊位')
+        set({ stalls: filterMockStalls(params.category) })
+      }
     } catch (e) {
-      console.error('[stallStore] fetchNearby 失败', e)
+      console.error('[stallStore] fetchNearby 失败，使用 mock 摊位', e)
+      set({ stalls: filterMockStalls(params.category) })
     } finally {
       set({ loading: false })
     }
