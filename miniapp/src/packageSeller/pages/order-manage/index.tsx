@@ -51,6 +51,22 @@ export default function OrderManage() {
     return c
   }, [orders])
 
+  // 简易经营台账（设计稿 ledger：大白话营收表）——今日已完成订单汇总
+  const ledger = useMemo(() => {
+    const start = new Date()
+    start.setHours(0, 0, 0, 0)
+    const ts = start.getTime()
+    let revenue = 0
+    let count = 0
+    orders.forEach((o) => {
+      if (o.status === 'completed' && (o.createdAt || 0) >= ts) {
+        revenue += o.payAmount || 0
+        count += 1
+      }
+    })
+    return { revenue: Math.round(revenue * 100) / 100, count }
+  }, [orders])
+
   const currentStatus = TABS.find((t) => t.key === activeTab)!.status
   const list = useMemo(
     () => orders.filter((o) => o.status === currentStatus),
@@ -111,6 +127,28 @@ export default function OrderManage() {
 
   return (
     <View className='order-manage-page'>
+      {/* 简易经营台账（大白话营收表） */}
+      <View className='ledger-card'>
+        <View className='lc-head'>
+          <Text className='lc-title'>📒 简易经营台账 (大白话营收表)</Text>
+          <Text className='lc-tag'>微信收款直通</Text>
+        </View>
+        <View className='lc-grid'>
+          <View className='lc-item'>
+            <Text className='lci-label'>今日入账</Text>
+            <Text className='lci-value'>¥{ledger.revenue}</Text>
+          </View>
+          <View className='lc-item'>
+            <Text className='lci-label'>今日出货</Text>
+            <Text className='lci-value'>{ledger.count}单</Text>
+          </View>
+          <View className='lc-item'>
+            <Text className='lci-label'>待核销</Text>
+            <Text className='lci-value accent'>{counts.confirmed}单</Text>
+          </View>
+        </View>
+      </View>
+
       {/* Tab 栏 */}
       <View className='tab-bar'>
         {TABS.map((t) => (

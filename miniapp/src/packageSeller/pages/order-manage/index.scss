@@ -6,6 +6,54 @@
   display: flex;
   flex-direction: column;
 
+  // 简易经营台账（设计稿 ledger 视图）
+  .ledger-card {
+    flex-shrink: 0;
+    margin: var(--gap-md) var(--gap-lg) 0;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--gap-md) var(--gap-lg);
+
+    .lc-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: var(--gap-sm);
+      border-bottom: 1px solid var(--color-border);
+
+      .lc-title { font-size: var(--fs-sm); font-weight: 700; color: var(--text-main); }
+      .lc-tag { font-size: var(--fs-xs); color: var(--text-muted); }
+    }
+
+    .lc-grid {
+      display: flex;
+      margin-top: var(--gap-sm);
+      background: var(--color-bg);
+      border-radius: var(--radius-sm);
+      padding: var(--gap-sm) 0;
+
+      .lc-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+
+        & + .lc-item { border-left: 1px solid var(--color-border); }
+
+        .lci-label { font-size: var(--fs-xs); color: var(--text-sub); }
+        .lci-value {
+          font-size: var(--fs-md);
+          font-weight: 800;
+          color: var(--text-main);
+
+          &.accent { color: var(--color-accent); }
+        }
+      }
+    }
+  }
+
   // Tab 栏
   .tab-bar {
     display: flex;
