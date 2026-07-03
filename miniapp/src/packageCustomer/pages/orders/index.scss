@@ -58,6 +58,22 @@
     @include card;
     padding: var(--gap-lg);
     margin-bottom: var(--gap-md);
+    position: relative;
+    overflow: hidden;
+
+    // 设计稿：右上角 amber 角标「待到店自提」
+    .oc-corner {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--color-accent);
+      color: #fff;
+      font-size: var(--fs-xs);
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 0 0 0 var(--radius-sm);
+      z-index: 1;
+    }
 
     .oc-head {
       display: flex;
@@ -67,10 +83,19 @@
       border-bottom: 1px solid var(--color-border);
 
       .oc-no { font-size: var(--fs-sm); color: var(--text-sub); }
-      .oc-status { font-size: var(--fs-sm); font-weight: 600; }
+      .oc-status {
+        font-size: var(--fs-sm);
+        font-weight: 600;
+
+        &.pending { color: var(--color-accent); }
+        &.confirmed { color: var(--color-primary); }
+        &.completed { color: var(--color-primary-dark); }
+        &.cancelled { color: var(--text-muted); }
+        &.disputed { color: var(--color-danger); }
+      }
     }
 
-    // 取货码醒目展示（设计稿：主色浅底 + 主色边框 + 白底等宽码）
+    // 取货码凭证（设计稿：白底等宽码 + 模拟条形码 + 提货规则）
     .oc-code-box {
       margin: var(--gap-md) 0;
       padding: var(--gap-lg);
@@ -81,13 +106,34 @@
       flex-direction: column;
       align-items: center;
 
-      .occ-label { font-size: var(--fs-sm); color: var(--color-accent); margin-bottom: var(--gap-xs); }
       .occ-code {
         font-size: 56px;
         font-weight: 800;
         letter-spacing: 6px;
         color: var(--color-primary);
         font-family: 'Courier New', monospace;
+      }
+
+      // 模拟条形码（repeating-gradient 竖纹）
+      .occ-barcode {
+        width: 330px;
+        height: 48px;
+        margin-top: var(--gap-sm);
+        background: repeating-linear-gradient(
+          90deg,
+          var(--text-main) 0 4px,
+          transparent 4px 7px,
+          var(--text-main) 7px 9px,
+          transparent 9px 14px
+        );
+        opacity: 0.8;
+        border-radius: 2px;
+      }
+
+      .occ-rule {
+        margin-top: var(--gap-sm);
+        font-size: var(--fs-xs);
+        color: var(--text-sub);
       }
     }
 

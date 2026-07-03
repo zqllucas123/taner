@@ -15,12 +15,12 @@ const TABS: { key: TabKey; label: string }[] = [
   { key: 'completed', label: '已完成' },
 ]
 
-const STATUS_META: Record<string, { text: string; color: string }> = {
-  pending: { text: '待摊主接单', color: '#ff976a' },
-  confirmed: { text: '待取货', color: '#1989fa' },
-  completed: { text: '已完成', color: '#07c160' },
-  cancelled: { text: '已取消', color: '#969799' },
-  disputed: { text: '纠纷中', color: '#ee0a24' },
+const STATUS_META: Record<string, { text: string; cls: string }> = {
+  pending: { text: '待摊主接单', cls: 'pending' },
+  confirmed: { text: '待取货', cls: 'confirmed' },
+  completed: { text: '已完成', cls: 'completed' },
+  cancelled: { text: '已取消', cls: 'cancelled' },
+  disputed: { text: '纠纷中', cls: 'disputed' },
 }
 
 function fmtTime(ts?: number) {
@@ -87,16 +87,20 @@ export default function Orders() {
               const canCancel = o.status === 'pending' || o.status === 'confirmed'
               return (
                 <View key={o.id} className='order-card'>
+                  {o.status === 'confirmed' && (
+                    <View className='oc-corner'>待到店自提</View>
+                  )}
                   <View className='oc-head'>
                     <Text className='oc-no'>#{o.orderNo}</Text>
-                    <Text className='oc-status' style={{ color: meta.color }}>{meta.text}</Text>
+                    <Text className={`oc-status ${meta.cls}`}>{meta.text}</Text>
                   </View>
 
                   {/* 取货码区（已完成/已取消淡化） */}
                   {o.status === 'confirmed' && (
                     <View className='oc-code-box'>
-                      <Text className='occ-label'>取货码（向摊主出示）</Text>
                       <Text className='occ-code'>{o.pickupCode}</Text>
+                      <View className='occ-barcode' />
+                      <Text className='occ-rule'>提货规则: 到店出示此码, 核销无误后当场扫微信付款。</Text>
                     </View>
                   )}
 
