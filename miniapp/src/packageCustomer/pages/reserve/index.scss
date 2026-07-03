@@ -118,6 +118,29 @@
     .fc-input { flex: 1; }
   }
 
+  // 极简预定规则说明（amber 提示框 · 对齐设计稿）
+  .rules-box {
+    margin: var(--gap-lg) var(--gap-lg) 0;
+    background: var(--color-accent-bg);
+    border: 1px solid var(--color-accent-light);
+    border-radius: var(--radius-md);
+    padding: var(--gap-md) var(--gap-lg);
+
+    .rb-title {
+      display: block;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-accent);
+      margin-bottom: var(--gap-xs);
+    }
+    .rb-line {
+      display: block;
+      font-size: 22px;
+      color: var(--color-accent);
+      line-height: 1.7;
+    }
+  }
+
   .page-bottom { height: 40px; }
 
   // 底部结算栏

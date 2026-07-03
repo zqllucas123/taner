@@ -157,8 +157,8 @@ export default function Reserve() {
         <View className='ticket-card'>
           <View className='tk-top'>
             <Text className='tk-emoji'>🎉</Text>
-            <Text className='tk-title'>预定成功</Text>
-            <Text className='tk-sub'>请凭取货码到摊位自提</Text>
+            <Text className='tk-title'>✓ 预定成功</Text>
+            <Text className='tk-sub'>线下自提凭证 (到店无接触提货付款)</Text>
           </View>
 
           <View className='tk-code-box'>
@@ -203,7 +203,7 @@ export default function Reserve() {
           </View>
 
           <View className='tk-tip'>
-            <Text className='tk-tip-text'>⏰ 请在 24 小时内取货，逾期预定将自动取消</Text>
+            <Text className='tk-tip-text'>⚠️ 默认保留24小时，过时自动取消不扣违约金</Text>
           </View>
         </View>
 
@@ -291,14 +291,21 @@ export default function Reserve() {
             />
           </View>
           <View className='form-cell column'>
-            <Text className='fc-label'>备注</Text>
+            <Text className='fc-label'>备注要求（例如: 不要辣/多要千岛酱/下午8点过来自提）</Text>
             <TextArea
-              placeholder='口味、规格等特殊要求（如「不要辣」）'
+              placeholder='输入口味习惯、自提时间等，不打字也可留空'
               value={reserveNotes}
               maxLength={200}
               onChange={(v) => setReserveNotes(v)}
             />
           </View>
+        </View>
+
+        {/* 极简预定规则说明（设计稿 amber 提示框） */}
+        <View className='rules-box'>
+          <Text className='rb-title'>🔒 极简预定规则说明 (专为地摊设计)：</Text>
+          <Text className='rb-line'>1. 线上免预付款，自提验货满意后再微信扫码付款，降低买卖心理阻力。</Text>
+          <Text className='rb-line'>2. 如出摊时间因下雨临时变动，小程序会自动微信消息告知。</Text>
         </View>
 
         {/* 优惠券 */}
@@ -343,7 +350,7 @@ export default function Reserve() {
           disabled={selectedItems.length === 0}
           onClick={handleSubmit}
         >
-          提交预定
+          确认预定并锁存货品 (免定金)
         </Button>
       </View>
 
