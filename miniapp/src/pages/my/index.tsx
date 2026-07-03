@@ -85,13 +85,47 @@ export default function My() {
             </Button>
           )}
         </View>
+        {isLoggedIn && (
+          <Text className='level-pill'>{isSeller ? 'Lv.3 金牌摊主' : 'Lv.3 地摊粉'}</Text>
+        )}
       </View>
 
-      {/* 角色切换 */}
+      {/* 快捷指标三宫格（设计稿 me 视图） */}
+      {!isSeller && (
+        <View className='metrics-grid'>
+          <View className='metric-cell' onClick={() => handleMenu('')}>
+            <Text className='mc-value'>150</Text>
+            <Text className='mc-label'>⭐ 我的积分</Text>
+          </View>
+          <View
+            className='metric-cell bordered'
+            onClick={() => handleMenu('/packageCustomer/pages/my-coupons/index')}
+          >
+            <Text className='mc-value'>券包</Text>
+            <Text className='mc-label'>🎫 优惠券</Text>
+          </View>
+          <View
+            className='metric-cell'
+            onClick={() => handleMenu('/packageCustomer/pages/orders/index')}
+          >
+            <Text className='mc-value'>预约</Text>
+            <Text className='mc-label'>🕐 自提预约</Text>
+          </View>
+        </View>
+      )}
+
+      {/* 角色切换（设计稿：带说明副文案的切换行） */}
       <View className='role-switch' onClick={() => switchRole()}>
-        <Text className='switch-text'>
-          {isSeller ? '切换到顾客身份' : '切换到摊主身份'}
-        </Text>
+        <View className='rs-info'>
+          <Text className='switch-text'>
+            {isSeller ? '切换回顾客逛街模式' : '切换至摊主工作台'}
+          </Text>
+          <Text className='switch-sub'>
+            {isSeller
+              ? '回到地图扫街、云逛小店与探店广场'
+              : '一键管理菜品、查看AI黄金定价和订单核销'}
+          </Text>
+        </View>
         <Text className='switch-arrow'>⇄</Text>
       </View>
 

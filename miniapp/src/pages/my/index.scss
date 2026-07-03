@@ -5,6 +5,9 @@
 
   &.theme-seller {
     --theme-color: var(--color-accent);
+
+    /* 摊主端无三宫格，切换卡直接叠在头部渐变上 */
+    .role-switch { margin-top: -24px; }
   }
   &.theme-customer {
     --theme-color: var(--color-primary);
@@ -16,6 +19,7 @@
   align-items: center;
   padding: 56px 40px 48px;
   background: var(--theme-color, var(--color-primary));
+  position: relative;
 
   .avatar {
     width: 120px;
@@ -23,6 +27,17 @@
     border-radius: 50%;
     background: #fff;
     border: 4px solid rgba(255, 255, 255, 0.4);
+  }
+
+  .level-pill {
+    position: absolute;
+    right: 32px;
+    top: 64px;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.95);
+    background: rgba(0, 0, 0, 0.15);
+    padding: 6px 20px;
+    border-radius: var(--radius-pill);
   }
 
   .profile-info {
@@ -59,21 +74,67 @@
   }
 }
 
+/* 快捷指标三宫格（设计稿 me 视图） */
+.metrics-grid {
+  display: flex;
+  margin: -24px 32px 0;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  padding: 28px 0;
+
+  .metric-cell {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    &.bordered {
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+    }
+
+    .mc-value {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .mc-label {
+      font-size: 22px;
+      color: var(--text-sub);
+    }
+
+    &:active { opacity: 0.7; }
+  }
+}
+
 .role-switch {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 16px;
-  margin: -24px 32px 0;
+  margin: 24px 32px 0;
   padding: 28px;
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 
+  .rs-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
   .switch-text {
     font-size: 30px;
     font-weight: 600;
     color: var(--theme-color, var(--color-primary));
+  }
+
+  .switch-sub {
+    font-size: 22px;
+    color: var(--text-sub);
   }
 
   .switch-arrow {
