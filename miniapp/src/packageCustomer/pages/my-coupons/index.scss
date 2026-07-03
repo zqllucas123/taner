@@ -28,10 +28,14 @@
     position: relative;
     display: flex;
     overflow: hidden;
+    border: 1px solid var(--color-like-border);
+    background: var(--color-like-bg);
 
     /* 已使用 / 已过期：整体褪色 */
     &.status-used,
     &.status-expired {
+      background: var(--color-card);
+      border-color: var(--color-border);
       .ct-left {
         background: var(--color-bg);
         color: var(--text-muted);
@@ -39,24 +43,24 @@
       .ct-amount { color: var(--text-muted); }
     }
 
-    /* 左侧金额区（虚线撕口分区） */
+    /* 左侧金额区（虚线撕口分区，设计稿 rose 券） */
     .ct-left {
       width: 200px;
       flex-shrink: 0;
-      background: var(--color-primary-bg);
-      color: var(--color-primary);
+      background: transparent;
+      color: var(--color-like-dark);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: var(--gap-lg) var(--gap-sm);
       /* 虚线撕口 */
-      border-right: 2px dashed var(--color-border-strong);
+      border-right: 2px dashed var(--color-like-border);
 
       .ct-amount {
         font-size: var(--fs-xl);
         font-weight: 700;
-        color: var(--color-primary);
+        color: var(--color-like-dark);
       }
       .ct-min {
         font-size: var(--fs-xs);
@@ -99,7 +103,7 @@
       }
       .ct-tip {
         font-size: var(--fs-xs);
-        color: var(--color-primary);
+        color: var(--color-like);
       }
     }
 
