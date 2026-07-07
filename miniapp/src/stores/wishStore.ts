@@ -4,6 +4,7 @@
 import { create } from 'zustand'
 import type { Wish, WishStatus } from '@/types'
 import { callFunction } from '@/services/cloud'
+import { getMockWishes } from '@/data/mockShop'
 
 interface WishState {
   wishes: Wish[]
@@ -33,9 +34,17 @@ export const useWishStore = create<WishState>((set, get) => ({
     set({ loading: true })
     try {
       const list = await callFunction<Wish[]>('wish', { action: 'list', ...params })
-      set({ wishes: list || [] })
+      if (list && list.length) {
+        set({ wishes: list })
+      } else if (params.stallId) {
+        // 云端无数据 → 该摊 mock 许愿兜底
+        set({ wishes: getMockWishes(params.stallId) })
+      } else {
+        set({ wishes: [] })
+      }
     } catch (e) {
-      console.error('[wishStore] fetchWishes 失败', e)
+      console.error('[wishStore] fetchWishes 失败，尝试 mock 兜底', e)
+      set({ wishes: params.stallId ? getMockWishes(params.stallId) : [] })
     } finally {
       set({ loading: false })
     }

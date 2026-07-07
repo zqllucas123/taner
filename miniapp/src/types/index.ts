@@ -210,6 +210,48 @@ export interface Wish {
   createdAt?: number
 }
 
+// ============ 拼团域（模块三 · 邻里拼团） ============
+
+/** 进行中 / 已成团 / 已过期 / 摊主下架 */
+export type GroupBuyStatus = 'active' | 'completed' | 'expired' | 'cancelled'
+
+export interface GroupBuyParticipant {
+  id: string
+  groupBuyId: string
+  userId: string
+  userName?: string
+  userAvatar?: string
+  orderId?: string | null
+  joinedAt?: number
+}
+
+export interface GroupBuy {
+  _id?: string
+  id: string
+  stallId: string
+  productId: string
+  productName: string
+  productImage?: string
+  /** 成团价（低于零售价） */
+  price: number
+  /** 零售原价（划线展示，可选） */
+  originalPrice?: number
+  /** 成团所需人数（2-3） */
+  targetCount: number
+  /** 当前已参团人数 */
+  currentCount: number
+  /** 有效小时数 */
+  expiryHours: number
+  /** 到期时间戳 */
+  expireAt: number
+  status: GroupBuyStatus
+  /** 应用层：当前用户是否已参团 */
+  joined?: boolean
+  /** detail 时返回的参与者列表 */
+  participants?: GroupBuyParticipant[]
+  createdAt?: number
+}
+
 // ============ 聚合码 ============
 
 export interface StallQRCode {

@@ -22,6 +22,8 @@ const COLLECTIONS = [
   'inventory_logs',
   'pricing_records',
   'stall_qrcodes',
+  'group_buys',
+  'group_buy_participants',
 ]
 
 exports.main = async () => {

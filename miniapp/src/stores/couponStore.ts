@@ -4,6 +4,7 @@
 import { create } from 'zustand'
 import type { Coupon, UserCoupon, UserCouponStatus } from '@/types'
 import { callFunction } from '@/services/cloud'
+import { getMockCoupons } from '@/data/mockShop'
 
 interface CouponState {
   /** 摊主：本摊位发的券 */
@@ -73,9 +74,10 @@ export const useCouponStore = create<CouponState>((set, get) => ({
   fetchStallCoupons: async (stallId) => {
     try {
       const list = await callFunction<Coupon[]>('coupon', { action: 'list', stallId })
-      set({ stallCoupons: list || [] })
+      set({ stallCoupons: list && list.length ? list : getMockCoupons(stallId) })
     } catch (e) {
-      console.error('[couponStore] fetchStallCoupons 失败', e)
+      console.error('[couponStore] fetchStallCoupons 失败，使用 mock 券', e)
+      set({ stallCoupons: getMockCoupons(stallId) })
     }
   },
 

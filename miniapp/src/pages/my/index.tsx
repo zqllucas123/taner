@@ -25,6 +25,7 @@ export default function My() {
     { icon: '💰', label: 'AI 定价', path: '/packageSeller/pages/pricing/index' },
     { icon: '🧾', label: '订单管理', path: '/packageSeller/pages/order-manage/index' },
     { icon: '🎫', label: '优惠券管理', path: '/packageSeller/pages/coupon-manage/index' },
+    { icon: '👥', label: '邻里拼团', path: '/packageSeller/pages/groupbuy-manage/index' },
     { icon: '📲', label: '聚合摆摊码', path: '/packageSeller/pages/stall-qrcode/index' },
   ]
 

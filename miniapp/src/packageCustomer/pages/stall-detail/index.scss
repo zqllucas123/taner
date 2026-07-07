@@ -566,5 +566,219 @@
       font-size: var(--fs-md);
       border-radius: var(--radius-lg);
     }
+
+    // 购物车汇总（美团式底部结算栏）
+    .ab-cart {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: var(--gap-md);
+
+      .abc-icon {
+        position: relative;
+        font-size: 44px;
+
+        .abc-badge {
+          position: absolute;
+          top: -6px;
+          right: -14px;
+          min-width: 30px;
+          height: 30px;
+          line-height: 30px;
+          text-align: center;
+          background: var(--color-danger);
+          color: #fff;
+          font-size: 18px;
+          font-weight: 700;
+          border-radius: var(--radius-pill);
+          padding: 0 6px;
+        }
+      }
+
+      .abc-amount {
+        display: flex;
+        flex-direction: column;
+
+        .abc-price { font-size: var(--fs-lg); font-weight: 900; color: var(--color-danger); }
+        .abc-tip { font-size: 18px; color: var(--text-muted); }
+      }
+    }
+
+    .ab-main + .ab-cart,
+    .ab-cart + .ab-main {
+      flex: none;
+    }
+
+    // 有购物车时，去结算按钮不再撑满
+    .ab-cart ~ .ab-main {
+      flex: 0 0 auto;
+      min-width: 220px;
+      margin-left: var(--gap-md);
+    }
+  }
+
+  // ===== 邻里拼团（orange/amber 渐变卡） =====
+  .groupbuy-area {
+    margin: var(--gap-lg) var(--gap-lg) 0;
+    background: linear-gradient(90deg, #fff7ed 0%, #fffbeb 100%);
+    border: 1px solid #fde68a;
+    border-radius: var(--radius-md);
+    padding: 20px var(--gap-lg);
+
+    .gb-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: var(--gap-md);
+
+      .gb-title { font-size: 24px; font-weight: 700; color: #c2410c; }
+      .gb-sub { font-size: 20px; color: #b45309; }
+    }
+
+    .gb-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-sm);
+
+      .gb-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--color-card);
+        border-radius: var(--radius-sm);
+        padding: var(--gap-md);
+        box-shadow: var(--shadow-xs);
+
+        .gbr-info {
+          flex: 1;
+          min-width: 0;
+
+          .gbr-name {
+            display: block;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-main);
+            @include ellipsis;
+          }
+
+          .gbr-meta {
+            display: flex;
+            align-items: baseline;
+            gap: var(--gap-sm);
+            margin-top: 4px;
+
+            .gbr-price { font-size: 28px; font-weight: 900; color: #ea580c; }
+            .gbr-origin {
+              font-size: 18px;
+              color: var(--text-muted);
+              text-decoration: line-through;
+            }
+            .gbr-progress { font-size: 20px; color: var(--text-sub); }
+            .gbr-timer { font-size: 20px; color: #b45309; }
+          }
+        }
+
+        .gbr-btn {
+          flex-shrink: 0;
+          margin-left: var(--gap-md);
+          background: #f97316;
+          color: #fff;
+          font-size: 22px;
+          font-weight: 700;
+          padding: var(--gap-sm) var(--gap-lg);
+          border-radius: var(--radius-pill);
+
+          &:active { transform: scale(0.96); }
+
+          &.joined {
+            background: var(--color-bg);
+            color: var(--text-muted);
+          }
+        }
+      }
+    }
   }
 }
+
+// ===== 商品加减步进器（购物车） · 追加到 product-card 内 =====
+.stall-detail-page .product-list .product-card .pc-body .pc-bottom .pc-right {
+  .pc-stepper {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+
+    .ps-btn {
+      width: 48px;
+      height: 48px;
+      line-height: 44px;
+      text-align: center;
+      border-radius: 50%;
+      font-size: 34px;
+      font-weight: 700;
+      border: 2px solid var(--color-primary);
+      color: var(--color-primary);
+      background: var(--color-card);
+
+      &:active { background: var(--color-primary-bg); }
+      &.disabled { border-color: var(--color-border); color: var(--text-muted); }
+    }
+
+    .ps-qty { font-size: 26px; font-weight: 700; color: var(--text-main); min-width: 40px; text-align: center; }
+  }
+}
+
+// ===== 拼团详情弹层（Popup 挂载到根，样式置顶层） =====
+.gb-detail {
+  padding: 32px var(--gap-lg) calc(32px + env(safe-area-inset-bottom));
+
+  .gbd-title { display: block; font-size: 32px; font-weight: 700; color: var(--text-main); }
+
+  .gbd-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--gap-md);
+    margin-top: var(--gap-md);
+
+    .gbd-price { font-size: 40px; font-weight: 900; color: #ea580c; }
+    .gbd-origin { font-size: 22px; color: var(--text-muted); text-decoration: line-through; }
+    .gbd-timer { font-size: 22px; color: #b45309; margin-left: auto; }
+  }
+
+  .gbd-progress { display: block; font-size: 24px; color: var(--text-sub); margin-top: var(--gap-md); }
+
+  .gbd-avatars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-md);
+    margin: 20px 0;
+
+    .gbd-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--color-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+
+      .gbda-img { width: 100%; height: 100%; }
+      .gbda-ph { font-size: 36px; }
+
+      &.empty { border: 2px dashed var(--color-border); }
+    }
+  }
+
+  .gbd-btn {
+    @include btn-primary;
+    height: 88px;
+    line-height: 88px;
+    text-align: center;
+    font-size: var(--fs-md);
+    border-radius: var(--radius-lg);
+    background: #f97316;
+
+    &.joined { background: var(--color-bg); color: var(--text-muted); box-shadow: none; }
+  }
+}
+

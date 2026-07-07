@@ -27,6 +27,7 @@ export default defineAppConfig({
         'pages/pricing/index', // AI 定价助手（Day5）
         'pages/order-manage/index', // 订单管理（Day9）
         'pages/coupon-manage/index', // 优惠券管理（Day10）
+        'pages/groupbuy-manage/index', // 邻里拼团管理（模块三）
         'pages/stall-qrcode/index', // 聚合摆摊码（Day11）
         // 'pages/dashboard/index',      // 经营仪表盘（Day3+）
       ],

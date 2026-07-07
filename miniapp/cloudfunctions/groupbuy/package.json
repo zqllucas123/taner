@@ -1,0 +1,9 @@
+{
+  "name": "groupbuy",
+  "version": "1.0.0",
+  "description": "邻里拼团：摊主发起/顾客参团/成团转订单/到期清扫",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

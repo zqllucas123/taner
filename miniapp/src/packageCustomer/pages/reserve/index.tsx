@@ -6,6 +6,7 @@ import { useProductStore } from '@/stores/productStore'
 import { useStallStore } from '@/stores/stallStore'
 import { useOrderStore } from '@/stores/orderStore'
 import { useCouponStore } from '@/stores/couponStore'
+import { useCartStore } from '@/stores/cartStore'
 import { getTempFileURLs } from '@/utils/upload'
 import type { Order, UserCoupon } from '@/types'
 import './index.scss'
@@ -15,11 +16,14 @@ export default function Reserve() {
   const stallId = router.params.stallId || ''
   // 可选：从详情页带入的默认预选商品
   const preselectId = router.params.productId || ''
+  // 从购物车结算进入：带入购物车已选商品数量
+  const fromCart = router.params.fromCart === '1'
 
   const { products, fetchByStall } = useProductStore()
   const { currentStall, fetchDetail } = useStallStore()
   const { createReservation } = useOrderStore()
   const { ownedCoupons, fetchOwnedCoupons } = useCouponStore()
+  const cart = useCartStore()
 
   // 各商品选购数量 { productId: qty }
   const [qtyMap, setQtyMap] = useState<Record<string, number>>({})
@@ -27,6 +31,8 @@ export default function Reserve() {
   const [reserveNotes, setReserveNotes] = useState('')
   const [urlMap, setUrlMap] = useState<Record<string, string>>({})
   const [submitting, setSubmitting] = useState(false)
+  // 已从购物车带入过（避免重复 seed）
+  const [cartSeeded, setCartSeeded] = useState(false)
   // 提交成功后的取货码票据
   const [ticket, setTicket] = useState<Order | null>(null)
   // 优惠券
@@ -47,6 +53,19 @@ export default function Reserve() {
       setQtyMap((prev) => (prev[preselectId] ? prev : { ...prev, [preselectId]: 1 }))
     }
   }, [preselectId, products])
+
+  // 从购物车带入已选数量（仅一次）
+  useEffect(() => {
+    if (fromCart && !cartSeeded && products.length) {
+      const seed: Record<string, number> = {}
+      Object.values(cart.items).forEach((it) => {
+        const p = products.find((pp) => pp.id === it.productId)
+        if (p) seed[it.productId] = Math.min(it.qty, p.stock)
+      })
+      if (Object.keys(seed).length) setQtyMap((prev) => ({ ...prev, ...seed }))
+      setCartSeeded(true)
+    }
+  }, [fromCart, cartSeeded, products, cart.items])
 
   // 商品图换临时 URL
   useEffect(() => {
@@ -142,6 +161,8 @@ export default function Reserve() {
       })
       if (order) {
         setTicket(order)
+        // 成单后清空购物车（从购物车结算时）
+        if (fromCart) cart.clear()
         // 刷新商品（库存已变化）
         fetchByStall(stallId)
       }

@@ -5,6 +5,7 @@
 import { create } from 'zustand'
 import type { Product, ProductStatus } from '@/types'
 import { callFunction } from '@/services/cloud'
+import { getMockProducts } from '@/data/mockShop'
 
 interface ProductState {
   /** 当前列表（摊主端=自己全部，顾客端=某摊位上架） */
@@ -45,9 +46,10 @@ export const useProductStore = create<ProductState>((set, get) => ({
     set({ loading: true })
     try {
       const list = await callFunction<Product[]>('product', { action: 'list', stallId })
-      set({ products: list || [] })
+      set({ products: list && list.length ? list : getMockProducts(stallId) })
     } catch (e) {
-      console.error('[productStore] fetchByStall 失败', e)
+      console.error('[productStore] fetchByStall 失败，使用 mock 商品', e)
+      set({ products: getMockProducts(stallId) })
     } finally {
       set({ loading: false })
     }

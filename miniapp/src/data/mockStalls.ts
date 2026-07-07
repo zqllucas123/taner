@@ -128,3 +128,8 @@ export function filterMockStalls(category?: string): Stall[] {
   if (!category) return MOCK_STALLS
   return MOCK_STALLS.filter((s) => s.category === category)
 }
+
+/** 按 id 查 mock 摊位（详情页兜底） */
+export function findMockStall(id: string): Stall | null {
+  return MOCK_STALLS.find((s) => s.id === id) || null
+}

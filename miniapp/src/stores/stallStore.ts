@@ -4,7 +4,7 @@
 import { create } from 'zustand'
 import type { Stall, StallStatus } from '@/types'
 import { callFunction } from '@/services/cloud'
-import { filterMockStalls } from '@/data/mockStalls'
+import { filterMockStalls, findMockStall } from '@/data/mockStalls'
 
 interface StallQuery {
   latitude?: number
@@ -64,11 +64,20 @@ export const useStallStore = create<StallState>((set, get) => ({
   fetchDetail: async (id) => {
     try {
       const stall = await callFunction<Stall>('stall', { action: 'get', id })
-      set({ currentStall: stall })
-      return stall
+      if (stall) {
+        set({ currentStall: stall })
+        return stall
+      }
+      // 云端无该摊（如点击的是 mock 兜底摊位）→ 回退 mock
+      const mock = findMockStall(id)
+      if (mock) console.warn('[stallStore] 云端无该摊，使用 mock 详情', id)
+      set({ currentStall: mock })
+      return mock
     } catch (e) {
-      console.error('[stallStore] fetchDetail 失败', e)
-      return null
+      console.error('[stallStore] fetchDetail 失败，尝试 mock 兜底', e)
+      const mock = findMockStall(id)
+      set({ currentStall: mock })
+      return mock
     }
   },
 
